@@ -1,10 +1,12 @@
-FROM jenkins/jenkins:2.190.1
+FROM jenkins/jenkins:lts
 
 ENV JENKINS_UC https://updates.jenkins-zh.cn
+ENV JENKINS_UC_DOWNLOAD https://mirrors.tuna.tsinghua.edu.cn/jenkins
 
-RUN mkdir -p $JENKINS_HOME/war/WEB-INF/update-center-rootCAs/ \
-    && curl https://github.com/jenkinsci/localization-zh-cn-plugin/blob/master/src/main/resources/mirror-adapter.crt \
-    -o $JENKINS_HOME/war/WEB-INF/update-center-rootCAs/mirror-adapter.crt
+ENV JENKINS_OPTS="-Dhudson.model.UpdateCenter.updateCenterUrl=https://updates.jenkins-zh.cn/update-center.json"
+ENV JENKINS_OPTS="-Djenkins.install.runSetupWizard=false"
 
-COPY active.txt active.txt
-RUN plugins.sh active.txt
+
+COPY init.groovy /usr/share/jenkins/ref/init.groovy.d/init.groovy
+
+RUN /usr/local/bin/install-plugins.sh localization-zh-cn configuration-as-code
