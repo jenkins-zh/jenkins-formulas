@@ -20,12 +20,6 @@ Thread.start {
       while((count = input.read(buf)) > 0) {
         out.write(buf, 0, count);
       }
-
-      out = new FileOutputStream(System.getenv("JENKINS_HOME") +  "/war/WEB-INF/jenkins.yaml");
-      input = new FileInputStream("/usr/share/jenkins/ref/jenkins.yaml")
-      while((count = input.read(buf)) > 0) {
-        out.write(buf, 0, count);
-      }
       println "Jenkins init ready..."
       break
     }
