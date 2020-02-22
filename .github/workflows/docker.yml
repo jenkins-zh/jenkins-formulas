@@ -1,0 +1,23 @@
+name: Build & Push
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Docker Publish
+        run: |
+          NEW_TAG="lts"
+          docker login docker.pkg.github.com --username LinuxSuRen --password ${{ secrets.GITHUB_TOKEN }}
+          docker build . -t docker.pkg.github.com/jenkins-zh/docker-zh/jenkins-zh:$NEW_TAG
+          docker push docker.pkg.github.com/jenkins-zh/docker-zh/jenkins-zh:$NEW_TAG
+          docker login --username surenpi --password ${{ secrets.DOCKER_HUB_TOKEN }}
+          docker tag docker.pkg.github.com/jenkins-zh/docker-zh/jenkins-zh:$NEW_TAG jenkinszh/jenkins-zh:$NEW_TAG
+          docker push jenkinszh/jenkins-zh:$NEW_TAG
