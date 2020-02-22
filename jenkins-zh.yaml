@@ -1,0 +1,15 @@
+bundle:
+  groupId: "io.github.linuxsuren"
+  artifactId: "jenkins-zh"
+  description: "Just a WAR auto-generation-sample"
+  vendor: "Jenkins project"
+war:
+  groupId: "org.jenkins-ci.main"
+  artifactId: "jenkins-war"
+  source:
+    version: 2.204.2
+plugins:
+  - groupId: "org.jenkins-ci.plugins"
+    artifactId: "localization-zh-cn"
+    source:
+      version: 1.0.13

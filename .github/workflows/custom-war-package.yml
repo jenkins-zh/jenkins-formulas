@@ -22,12 +22,18 @@ jobs:
           git clone https://github.com/jenkinsci/custom-war-packager
           cd custom-war-packager && mvn clean package -DskipTests
 
-      - name: Upload artifact
+      - name: Upload artifact cwp
         uses: actions/upload-artifact@v1.0.0
         with:
           name: custom-war-packager-cli
           path: custom-war-packager/custom-war-packager-cli/target/custom-war-packager-cli-2.0-alpha-3-SNAPSHOT-jar-with-dependencies.jar
 
-      - name: Deploy
+      - name: Generate jenkins.war
         run: |
-          cd custom-war-packager && mvn deploy -Dregistry=https://maven.pkg.github.com/jenkins-zh -Dtoken=${{ secrets.GITHUB_TOKEN }}
+          java -jar custom-war-packager/custom-war-packager-cli/target/custom-war-packager-cli-2.0-alpha-3-SNAPSHOT-jar-with-dependencies.jar -configPath=jenkins-zh.yaml -version=2.204.2 -tmpDir=tmp
+
+      - name: Upload artifact jenkins.war
+        uses: actions/upload-artifact@v1.0.0
+        with:
+          name: jenkins.war
+          path: tmp/output/jenkins-zh-2.204.2.war
