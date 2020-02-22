@@ -36,4 +36,4 @@ jobs:
         uses: actions/upload-artifact@v1.0.0
         with:
           name: jenkins.war
-          path: tmp/output/jenkins-zh-2.204.2.war
+          path: custom-war-packager/tmp/output/jenkins-zh-2.204.2.war
