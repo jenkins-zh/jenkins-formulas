@@ -40,4 +40,4 @@ jobs:
 
       - name: Upload to bintray
         run: |
-          curl -T custom-war-packager/tmp/output/jenkins-zh-2.204.2.war -ulinuxsuren:${{ secrets.BINTRAY_TOKEN }} https://api.bintray.com/content/jenkins-zh/jenkins-cli/jenkins/2.204.2/jenkins-zh.war
+          curl -T tmp/output/jenkins-zh-2.204.2.war -ulinuxsuren:${{ secrets.BINTRAY_TOKEN }} https://api.bintray.com/content/jenkins-zh/jenkins-cli/jenkins/2.204.2/jenkins-zh.war
