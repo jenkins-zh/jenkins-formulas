@@ -37,4 +37,6 @@ Thread.start {
       break
     }
   }
+
+  println "cert init thread done"
 }

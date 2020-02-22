@@ -1,0 +1,5 @@
+jenkins:
+  updateCenter:
+    sites:
+    - id: "default"
+      url: "https://updates.jenkins-zh.cn/update-center.json"

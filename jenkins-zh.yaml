@@ -1,8 +1,8 @@
 bundle:
   groupId: "io.github.linuxsuren"
   artifactId: "jenkins-zh"
-  description: "Jenkins with the update-center mirror from China"
-  vendor: "Jenkins Chinese Community"
+  description: "Just a WAR auto-generation-sample"
+  vendor: "Jenkins project"
 war:
   groupId: "org.jenkins-ci.main"
   artifactId: "jenkins-war"
@@ -13,6 +13,14 @@ plugins:
     artifactId: "localization-zh-cn"
     source:
       version: 1.0.13
+  - groupId: "io.jenkins"
+    artifactId: "configuration-as-code"
+    source:
+      version: "1.35"
+casc:
+  - id: "jcasc"
+    source:
+      dir: casc.yaml
 groovyHooks:
   - type: "init"
     id: "initScripts"
