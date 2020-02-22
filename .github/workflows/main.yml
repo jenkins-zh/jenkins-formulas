@@ -13,10 +13,8 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Docker Publish
-        env:
-          DOCKER_TOKEN: ${{ secrets.DOCKER }}
         run: |
           NEW_TAG="2.221"
-          docker login docker.pkg.github.com --username LinuxSuRen --password ${GITHUB_TOKEN}
+          docker login docker.pkg.github.com --username LinuxSuRen --password ${{ secrets.GITHUB_TOKEN }}
           docker build . -t docker.pkg.github.com/jenkins-zh/jenkins-docker/jenkins-zh:$NEW_TAG
           docker push docker.pkg.github.com/jenkins-zh/jenkins-docker/jenkins-zh:$NEW_TAG
