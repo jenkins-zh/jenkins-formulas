@@ -20,7 +20,3 @@ jobs:
           docker login docker.pkg.github.com --username LinuxSuRen --password ${DOCKER_TOKEN}
           docker build . -t docker.pkg.github.com/jenkins-zh/jenkins-docker/jenkins-zh:$NEW_TAG
           docker push docker.pkg.github.com/jenkins-zh/jenkins-docker/jenkins-zh:$NEW_TAG
-
-          docker login
-          docker tag docker.pkg.github.com/jenkins-zh/jenkins-docker/jenkins-zh:$NEW_TAG
-          docker push docker.pkg.github.com/jenkins-zh/jenkins-docker/jenkins-zh:$NEW_TAG
