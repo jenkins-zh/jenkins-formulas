@@ -1,4 +1,4 @@
-name: Build & Push
+name: Build Custom War Package
 
 on:
   push:
