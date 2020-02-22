@@ -1,8 +1,8 @@
 bundle:
   groupId: "io.github.linuxsuren"
   artifactId: "jenkins-zh"
-  description: "Just a WAR auto-generation-sample"
-  vendor: "Jenkins project"
+  description: "Jenkins with the update-center mirror from China"
+  vendor: "Jenkins Chinese Community"
 war:
   groupId: "org.jenkins-ci.main"
   artifactId: "jenkins-war"
@@ -13,3 +13,8 @@ plugins:
     artifactId: "localization-zh-cn"
     source:
       version: 1.0.13
+groovyHooks:
+  - type: "init"
+    id: "initScripts"
+    source:
+      dir: cwp-init.groovy
