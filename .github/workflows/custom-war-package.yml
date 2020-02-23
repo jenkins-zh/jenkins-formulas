@@ -1,0 +1,43 @@
+name: Build Custom War Package
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Set up JDK 1.8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+
+      - name: Build
+        run: |
+          git clone https://github.com/jenkinsci/custom-war-packager
+          cd custom-war-packager && mvn clean package -DskipTests
+
+      - name: Upload artifact cwp
+        uses: actions/upload-artifact@v1.0.0
+        with:
+          name: custom-war-packager-cli
+          path: custom-war-packager/custom-war-packager-cli/target/custom-war-packager-cli-2.0-alpha-3-SNAPSHOT-jar-with-dependencies.jar
+
+      - name: Generate jenkins.war
+        run: |
+          java -jar custom-war-packager/custom-war-packager-cli/target/custom-war-packager-cli-2.0-alpha-3-SNAPSHOT-jar-with-dependencies.jar -configPath=jenkins-zh.yaml -version=2.204.2 -tmpDir=tmp
+
+      - name: Upload artifact jenkins.war
+        uses: actions/upload-artifact@v1.0.0
+        with:
+          name: jenkins.war
+          path: tmp/output/target/jenkins-zh-2.204.2.war
+
+      - name: Upload to bintray
+        run: |
+          curl -T tmp/output/target/jenkins-zh-2.204.2.war -ulinuxsuren:${{ secrets.BINTRAY_TOKEN }} https://api.bintray.com/content/jenkins-zh/jenkins-cli/jenkins/2.204.2/jenkins-zh.war
