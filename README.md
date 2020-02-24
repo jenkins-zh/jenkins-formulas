@@ -9,11 +9,11 @@
 
 使用命令如下：
 
-`docker run --rm -p 8080:8080 jenkinszh/jenkins-zh:latest`
+`docker run --rm -p 8080:8080 jenkinszh/jenkins-zh:lts`
 
 下面的例子可以把 Jenkins 的数据目录挂载到本地：
 
-`docker run -u root -v /var/jenkins/data:/var/jenkins_home -p 18080:8080 jenkinszh/jenkins-zh:latest`
+`docker run -u root -v /var/jenkins/data:/var/jenkins_home -p 18080:8080 jenkinszh/jenkins-zh:lts`
 
 [点击这里](https://github.com/jenkins-zh/docker-zh/packages/134536/versions)查看所有的版本。
 
