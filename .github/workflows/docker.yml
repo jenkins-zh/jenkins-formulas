@@ -21,3 +21,12 @@ jobs:
           docker login --username surenpi --password ${{ secrets.DOCKER_HUB_TOKEN }}
           docker tag docker.pkg.github.com/jenkins-zh/docker-zh/jenkins-zh:$NEW_TAG jenkinszh/jenkins-zh:$NEW_TAG
           docker push jenkinszh/jenkins-zh:$NEW_TAG
+      - name: Docker(jdk11) Publish
+        run: |
+          NEW_TAG="lts-jdk11"
+          docker login docker.pkg.github.com --username LinuxSuRen --password ${{ secrets.GITHUB_TOKEN }}
+          docker build . -f Dockerfile-jdk11 -t docker.pkg.github.com/jenkins-zh/docker-zh/jenkins-zh:$NEW_TAG
+          docker push docker.pkg.github.com/jenkins-zh/docker-zh/jenkins-zh:$NEW_TAG
+          docker login --username surenpi --password ${{ secrets.DOCKER_HUB_TOKEN }}
+          docker tag docker.pkg.github.com/jenkins-zh/docker-zh/jenkins-zh:$NEW_TAG jenkinszh/jenkins-zh:$NEW_TAG
+          docker push jenkinszh/jenkins-zh:$NEW_TAG
