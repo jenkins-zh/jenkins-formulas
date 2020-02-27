@@ -5,6 +5,7 @@
 * [简体中文插件](https://github.com/jenkinsci/localization-zh-cn-plugin)
 
 ## 镜像
+[![Docker Stars](https://img.shields.io/docker/stars/jenkinszh/jenkins-zh.svg)](https://hub.docker.com/r/jenkinszh/jenkins-zh/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/jenkinszh/jenkins-zh.svg)](https://hub.docker.com/r/jenkinszh/jenkins-zh/tags)
 
 使用命令如下：
@@ -18,13 +19,14 @@
 [点击这里](https://github.com/jenkins-zh/docker-zh/packages/134536/versions)查看所有的版本。
 
 ## war
-
- [![下载](https://api.bintray.com/packages/jenkins-zh/jenkins-cli/jenkins/images/download.svg) ](https://bintray.com/jenkins-zh/jenkins-cli/jenkins/_latestVersion)
+[![下载](https://api.bintray.com/packages/jenkins-zh/jenkins-cli/jenkins/images/download.svg) ](https://bintray.com/jenkins-zh/jenkins-cli/jenkins/_latestVersion)
 
 这种发行版除了包含上述的公共特性外，还包括：
 
 * [配置即代码插件](https://github.com/jenkinsci/configuration-as-code-plugin/)
 
+## 参考
+[Jenkins 官方 Docker Hub 地址](https://hub.docker.com/r/jenkins/jenkins/tags)
 
 ## 反馈
 
