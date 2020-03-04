@@ -16,7 +16,7 @@
 
 `docker run -u root -v /var/jenkins/data:/var/jenkins_home -p 18080:8080 jenkinszh/jenkins-zh:lts`
 
-[点击这里](https://github.com/jenkins-zh/docker-zh/packages/134536/versions)查看所有的版本。
+[点击这里](https://github.com/jenkins-zh/docker-zh/packages/134536/versions)查看所有 `docker tag` 的版本。
 
 ## war
 [![下载](https://api.bintray.com/packages/jenkins-zh/jenkins-cli/jenkins/images/download.svg) ](https://bintray.com/jenkins-zh/jenkins-cli/jenkins/_latestVersion)
@@ -24,6 +24,8 @@
 这种发行版除了包含上述的公共特性外，还包括：
 
 * [配置即代码插件](https://github.com/jenkinsci/configuration-as-code-plugin/)
+
+[点击这里](https://dl.bintray.com/jenkins-zh/jenkins-cli/jenkins/)查看所有 `jenkins.war` 的版本。
 
 ## 参考
 [Jenkins 官方 Docker Hub 地址](https://hub.docker.com/r/jenkins/jenkins/tags)
