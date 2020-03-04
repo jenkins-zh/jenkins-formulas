@@ -3,7 +3,7 @@ name: Build & Push
 on:
   push:
     branches:
-      - master
+      - 2.204.3
 
 jobs:
   build:
@@ -14,7 +14,7 @@ jobs:
       - uses: actions/checkout@v1
       - name: Docker Publish
         run: |
-          NEW_TAG="lts"
+          NEW_TAG="2.204.3"
           docker login docker.pkg.github.com --username LinuxSuRen --password ${{ secrets.GITHUB_TOKEN }}
           docker build . -t docker.pkg.github.com/jenkins-zh/docker-zh/jenkins-zh:$NEW_TAG
           docker push docker.pkg.github.com/jenkins-zh/docker-zh/jenkins-zh:$NEW_TAG
@@ -23,7 +23,7 @@ jobs:
           docker push jenkinszh/jenkins-zh:$NEW_TAG
       - name: Docker(jdk11) Publish
         run: |
-          NEW_TAG="lts-jdk11"
+          NEW_TAG="2.204.3-jdk11"
           docker login docker.pkg.github.com --username LinuxSuRen --password ${{ secrets.GITHUB_TOKEN }}
           docker build . -f Dockerfile-jdk11 -t docker.pkg.github.com/jenkins-zh/docker-zh/jenkins-zh:$NEW_TAG
           docker push docker.pkg.github.com/jenkins-zh/docker-zh/jenkins-zh:$NEW_TAG
