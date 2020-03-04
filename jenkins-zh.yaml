@@ -7,7 +7,7 @@ war:
   groupId: "org.jenkins-ci.main"
   artifactId: "jenkins-war"
   source:
-    version: 2.204.1
+    version: 2.223
 plugins:
   - groupId: "org.jenkins-ci.plugins"
     artifactId: "localization-zh-cn"
