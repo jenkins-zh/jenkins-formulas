@@ -3,7 +3,7 @@ name: Build Custom War Package
 on:
   push:
     branches:
-      - 2.204.3
+      - 2.204.4
 
 jobs:
   build:
@@ -23,10 +23,10 @@ jobs:
 
       - name: Generate jenkins.war
         run: |
-          java -jar custom-war-packager-cli.jar -configPath=jenkins-zh.yaml -version=2.204.3 -tmpDir=tmp
+          java -jar custom-war-packager-cli.jar -configPath=jenkins-zh.yaml -version=2.204.4 -tmpDir=tmp
 
       - name: Upload to bintray
         run: |
-          curl -T tmp/output/target/jenkins-zh-2.204.3.war -ulinuxsuren:${{ secrets.BINTRAY_TOKEN }} \
-            -H "X-Bintray-Package:jenkins" -H "X-Bintray-Version:2.204.3" \
-            https://api.bintray.com/content/jenkins-zh/jenkins-cli/jenkins/2.204.3/jenkins-zh.war
+          curl -T tmp/output/target/jenkins-zh-2.204.4.war -ulinuxsuren:${{ secrets.BINTRAY_TOKEN }} \
+            -H "X-Bintray-Package:jenkins" -H "X-Bintray-Version:2.204.4" \
+            https://api.bintray.com/content/jenkins-zh/jenkins-cli/jenkins/2.204.4/jenkins-zh.war
