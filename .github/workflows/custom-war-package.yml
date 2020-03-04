@@ -17,15 +17,16 @@ jobs:
         with:
           java-version: 1.8
 
-      - name: Build
+      - name: Download CWP
         run: |
-          git clone https://github.com/jenkinsci/custom-war-packager
-          cd custom-war-packager && mvn clean package -DskipTests
+          curl https://repo.jenkins-ci.org/list/releases/io/jenkins/tools/custom-war-packager/custom-war-packager-cli/2.0-alpha-2/custom-war-packager-cli-2.0-alpha-2-jar-with-dependencies.jar -o custom-war-packager-cli.jar
 
       - name: Generate jenkins.war
         run: |
-          java -jar custom-war-packager/custom-war-packager-cli/target/custom-war-packager-cli-2.0-alpha-3-SNAPSHOT-jar-with-dependencies.jar -configPath=jenkins-zh.yaml -version=2.204.3 -tmpDir=tmp
+          java -jar custom-war-packager-cli.jar -configPath=jenkins-zh.yaml -version=2.204.3 -tmpDir=tmp
 
       - name: Upload to bintray
         run: |
-          curl -T tmp/output/target/jenkins-zh-2.204.3.war -ulinuxsuren:${{ secrets.BINTRAY_TOKEN }} https://api.bintray.com/content/jenkins-zh/jenkins-cli/jenkins/2.204.3/jenkins-zh.war
+          curl -T tmp/output/target/jenkins-zh-2.204.3.war -ulinuxsuren:${{ secrets.BINTRAY_TOKEN }} \
+            -H "X-Bintray-Package:jenkins" -H "X-Bintray-Version:2.204.3" \
+            https://api.bintray.com/content/jenkins-zh/jenkins-cli/jenkins/2.204.3/jenkins-zh.war
