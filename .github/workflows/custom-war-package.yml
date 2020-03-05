@@ -30,3 +30,4 @@ jobs:
           curl -T tmp/output/target/jenkins-zh-2.204.4.war -ulinuxsuren:${{ secrets.BINTRAY_TOKEN }} \
             -H "X-Bintray-Package:jenkins" -H "X-Bintray-Version:2.204.4" \
             https://api.bintray.com/content/jenkins-zh/generic/jenkins/2.204.4/jenkins-zh.war
+          curl -X POST -ulinuxsuren:${{ secrets.BINTRAY_TOKEN }} https://api.bintray.com/content/jenkins-zh/generic/jenkins/2.224/publish
