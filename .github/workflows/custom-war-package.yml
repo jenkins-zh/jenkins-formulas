@@ -17,27 +17,17 @@ jobs:
         with:
           java-version: 1.8
 
-      - name: Build
+      - name: Download CWP
         run: |
-          git clone https://github.com/jenkinsci/custom-war-packager
-          cd custom-war-packager && mvn clean package -DskipTests
-
-      - name: Upload artifact cwp
-        uses: actions/upload-artifact@v1.0.0
-        with:
-          name: custom-war-packager-cli
-          path: custom-war-packager/custom-war-packager-cli/target/custom-war-packager-cli-2.0-alpha-3-SNAPSHOT-jar-with-dependencies.jar
-
+          curl https://repo.jenkins-ci.org/list/releases/io/jenkins/tools/custom-war-packager/custom-war-packager-cli/2.0-alpha-2/custom-war-packager-cli-2.0-alpha-2-jar-with-dependencies.jar -o custom-war-packager-cli.jar
       - name: Generate jenkins.war
         run: |
-          java -jar custom-war-packager/custom-war-packager-cli/target/custom-war-packager-cli-2.0-alpha-3-SNAPSHOT-jar-with-dependencies.jar -configPath=jenkins-zh.yaml -version=2.204.2 -tmpDir=tmp
-
-      - name: Upload artifact jenkins.war
-        uses: actions/upload-artifact@v1.0.0
-        with:
-          name: jenkins.war
-          path: tmp/output/target/jenkins-zh-2.204.2.war
+          java -jar custom-war-packager-cli.jar -configPath=jenkins-zh.yaml -version=2.223 -tmpDir=tmp
 
       - name: Upload to bintray
         run: |
-          curl -T tmp/output/target/jenkins-zh-2.204.2.war -ulinuxsuren:${{ secrets.BINTRAY_TOKEN }} https://api.bintray.com/content/jenkins-zh/jenkins-cli/jenkins/2.204.2/jenkins-zh.war
+          curl -ulinuxsuren:${{ secrets.BINTRAY_TOKEN }} -X DELETE https://api.bintray.com/packages/jenkins-zh/generic/jenkins-cli/versions/2.223
+          curl -T tmp/output/target/jenkins-zh-2.223.war -ulinuxsuren:${{ secrets.BINTRAY_TOKEN }} \
+            -H "X-Bintray-Package:jenkins" -H "X-Bintray-Version:2.223" \
+            https://api.bintray.com/content/jenkins-zh/generic/jenkins/2.223/jenkins-zh.war
+          curl -X POST -ulinuxsuren:${{ secrets.BINTRAY_TOKEN }} https://api.bintray.com/content/jenkins-zh/generic/jenkins/2.223/publish
