@@ -17,12 +17,11 @@ jobs:
         with:
           java-version: 1.8
 
-      - name: Download CWP
-        run: |
-          curl https://repo.jenkins-ci.org/list/releases/io/jenkins/tools/custom-war-packager/custom-war-packager-cli/2.0-alpha-2/custom-war-packager-cli-2.0-alpha-2-jar-with-dependencies.jar -o custom-war-packager-cli.jar
       - name: Generate jenkins.war
         run: |
-          java -jar custom-war-packager-cli.jar -configPath=jenkins-zh.yaml -version=2.223 -tmpDir=tmp
+          wget https://dl.bintray.com/jenkins-zh/generic/jenkins-cli/dev/jcli-darwin-amd64.tar.gz
+          tar xzvf jcli-darwin-amd64.tar.gz
+          ./jcli cwp --config-path jenkins-zh.yaml --version 2.223 --tmp-dir tmp
 
       - name: Upload to bintray
         run: |
