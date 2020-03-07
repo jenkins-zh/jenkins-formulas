@@ -19,7 +19,7 @@ jobs:
 
       - name: Generate jenkins.war
         run: |
-          wget https://dl.bintray.com/jenkins-zh/generic/jenkins-cli/dev/jcli-darwin-amd64.tar.gz
+          wget https://dl.bintray.com/jenkins-zh/generic/jenkins-cli/dev/jcli-linux-amd64.tar.gz
           tar xzvf jcli-darwin-amd64.tar.gz
           ./jcli cwp --config-path jenkins-zh.yaml --version 2.223 --tmp-dir tmp
 
