@@ -18,15 +18,15 @@ jobs:
           java-version: 1.8
 
       - name: Generate jenkins.war
+        env:
+          VERSION: 2.223
         run: |
           wget https://dl.bintray.com/jenkins-zh/generic/jenkins-cli/dev/jcli-linux-amd64.tar.gz
           tar xzvf jcli-linux-amd64.tar.gz
-          ./jcli cwp --config-path jenkins-zh.yaml --version 2.223 --tmp-dir tmp
-
-      - name: Upload to bintray
-        run: |
-          curl -ulinuxsuren:${{ secrets.BINTRAY_TOKEN }} -X DELETE https://api.bintray.com/packages/jenkins-zh/generic/jenkins-cli/versions/2.223
-          curl -T tmp/output/target/jenkins-zh-2.223.war -ulinuxsuren:${{ secrets.BINTRAY_TOKEN }} \
-            -H "X-Bintray-Package:jenkins" -H "X-Bintray-Version:2.223" \
-            https://api.bintray.com/content/jenkins-zh/generic/jenkins/2.223/jenkins-zh.war
-          curl -X POST -ulinuxsuren:${{ secrets.BINTRAY_TOKEN }} https://api.bintray.com/content/jenkins-zh/generic/jenkins/2.223/publish
+          ./jcli cwp --config-path jenkins-zh.yaml --version $VERSION --tmp-dir tmp
+          
+          curl -ulinuxsuren:${{ secrets.BINTRAY_TOKEN }} -X DELETE https://api.bintray.com/packages/jenkins-zh/generic/jenkins-cli/versions/$VERSION
+          curl -T tmp/output/target/jenkins-zh-$VERSION.war -ulinuxsuren:${{ secrets.BINTRAY_TOKEN }} \
+            -H "X-Bintray-Package:jenkins" -H "X-Bintray-Version:$VERSION" \
+            https://api.bintray.com/content/jenkins-zh/generic/jenkins/$VERSION/jenkins-zh.war
+          curl -X POST -ulinuxsuren:${{ secrets.BINTRAY_TOKEN }} https://api.bintray.com/content/jenkins-zh/generic/jenkins/$VERSION/publish
