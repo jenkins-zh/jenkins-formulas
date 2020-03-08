@@ -24,9 +24,9 @@ plugins:
 casc:
   - id: "jcasc"
     source:
-      dir: ../casc.yaml
+      dir: casc.yaml
 groovyHooks:
   - type: "init"
     id: "initScripts"
     source:
-      dir: ../cwp-init.groovy
+      dir: cwp-init.groovy
