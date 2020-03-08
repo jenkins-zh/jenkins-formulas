@@ -1,7 +1,7 @@
 bundle:
   groupId: "io.github.linuxsuren"
   artifactId: "jenkins-zh"
-  description: "Jenkins with Configuration as Code"
+  description: "Jenkins with Pipeline suite"
   vendor: "Chinese Jenkins Community"
 war:
   groupId: "org.jenkins-ci.main"
@@ -17,12 +17,16 @@ plugins:
     artifactId: "configuration-as-code"
     source:
       version: "1.35"
+  - groupId: "org.jenkins-ci.plugins.workflow"
+    artifactId: "workflow-aggregator"
+    source:
+      version: "2.6"
 casc:
   - id: "jcasc"
     source:
-      dir: casc.yaml
+      dir: ../casc.yaml
 groovyHooks:
   - type: "init"
     id: "initScripts"
     source:
-      dir: cwp-init.groovy
+      dir: ../cwp-init.groovy

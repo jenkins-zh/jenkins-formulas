@@ -27,13 +27,19 @@
 
 [点击这里](https://dl.bintray.com/jenkins-zh/generic/jenkins/)查看所有 `jenkins.war` 的版本。
 
-## 贡献
+## 配方
+特定的用户场景下，通常会使用一组 Jenkins 插件及其配置，下面是一些常用的开箱即用的方案（也就是这里说的配方）：
 
+| 配方 | 文件名 |
+|---|---|
+| 配置及管理 | `jenkins-zh.war` |
+| 配置及管理 + 流水线| `jenkins-pipeline-zh.war` |
+
+## 贡献
 所有的 `LTS` 版本都会分别创建对应的分支，`Weekly` 版本则是在 master 分支上来进行维护。
 
 ## 参考
 [Jenkins 官方 Docker Hub 地址](https://hub.docker.com/r/jenkins/jenkins/tags)
 
 ## 反馈
-
 该项目还处于早起阶段，我们欢迎任何人以任何形式帮助完善、提出改进建议。
