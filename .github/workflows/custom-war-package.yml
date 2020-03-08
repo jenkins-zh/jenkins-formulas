@@ -3,7 +3,7 @@ name: Build Custom War Package
 on:
   push:
     branches:
-      - 2.204.4
+      - 2.204.5
 
 jobs:
   build:
@@ -17,17 +17,19 @@ jobs:
         with:
           java-version: 1.8
 
-      - name: Download CWP
-        run: |
-          curl https://repo.jenkins-ci.org/list/releases/io/jenkins/tools/custom-war-packager/custom-war-packager-cli/2.0-alpha-2/custom-war-packager-cli-2.0-alpha-2-jar-with-dependencies.jar -o custom-war-packager-cli.jar
-
       - name: Generate jenkins.war
+        env:
+          VERSION: 2.204.5
         run: |
-          java -jar custom-war-packager-cli.jar -configPath=jenkins-zh.yaml -version=2.204.4 -tmpDir=tmp
+          wget https://dl.bintray.com/jenkins-zh/generic/jenkins-cli/dev/jcli-linux-amd64.tar.gz
+          tar xzvf jcli-linux-amd64.tar.gz
+          ./jcli cwp --config-path jenkins-zh.yaml --version $VERSION --tmp-dir tmp
+          ./jcli cwp --config-path formulas/pipeline.yaml --version $VERSION --tmp-dir tmp-pipeline
 
-      - name: Upload to bintray
-        run: |
-          curl -T tmp/output/target/jenkins-zh-2.204.4.war -ulinuxsuren:${{ secrets.BINTRAY_TOKEN }} \
-            -H "X-Bintray-Package:jenkins" -H "X-Bintray-Version:2.204.4" \
-            https://api.bintray.com/content/jenkins-zh/generic/jenkins/2.204.4/jenkins-zh.war
-          curl -X POST -ulinuxsuren:${{ secrets.BINTRAY_TOKEN }} https://api.bintray.com/content/jenkins-zh/generic/jenkins/2.204.4/publish
+          curl -T tmp/output/target/jenkins-zh-$VERSION.war -ulinuxsuren:${{ secrets.BINTRAY_TOKEN }} \
+            -H "X-Bintray-Package:jenkins" -H "X-Bintray-Version:$VERSION" \
+            https://api.bintray.com/content/jenkins-zh/generic/jenkins/$VERSION/jenkins-zh.war
+          curl -T tmp-pipeline/output/target/jenkins-zh-$VERSION.war -ulinuxsuren:${{ secrets.BINTRAY_TOKEN }} \
+            -H "X-Bintray-Package:jenkins" -H "X-Bintray-Version:$VERSION" \
+            https://api.bintray.com/content/jenkins-zh/generic/jenkins/$VERSION/jenkins-pipeline-zh.war
+          curl -X POST -ulinuxsuren:${{ secrets.BINTRAY_TOKEN }} https://api.bintray.com/content/jenkins-zh/generic/jenkins/$VERSION/publish
