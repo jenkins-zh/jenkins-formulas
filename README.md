@@ -14,7 +14,7 @@
 
 下面的例子可以把 Jenkins 的数据目录挂载到本地：
 
-`docker run -u root -v /var/jenkins/data:/var/jenkins_home -p 18080:8080 jenkinszh/jenkins-zh:lts`
+`docker run -u root -v /var/jenkins/data:/var/jenkins_home -p 8080:8080 jenkinszh/jenkins-zh:lts`
 
 [点击这里](https://github.com/jenkins-zh/docker-zh/packages/134536/versions)查看所有 `docker tag` 的版本。
 
