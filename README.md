@@ -32,8 +32,8 @@
 
 | 配方 | 文件名 |
 |---|---|
-| 配置及管理 | `jenkins-zh.war` |
-| 配置及管理 + 流水线| `jenkins-pipeline-zh.war` |
+| 配置即代码 | `jenkins-zh.war` |
+| 配置即代码 + 流水线| `jenkins-pipeline-zh.war` |
 
 ## 贡献
 所有的 `LTS` 版本都会分别创建对应的分支，`Weekly` 版本则是在 master 分支上来进行维护。
