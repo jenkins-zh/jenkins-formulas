@@ -26,4 +26,6 @@ jobs:
           tar xzvf jcli-linux-amd64.tar.gz
           export PATH=.:$PATH
           which jcli
-          make linux cj-check cj-build
+          make linux cj-check
+          cat config.yaml
+          make cj-build

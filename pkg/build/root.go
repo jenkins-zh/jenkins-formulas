@@ -53,7 +53,8 @@ func (o *BuildOptions) Run(cmd *cobra.Command, args []string) (err error) {
 	for _, ver := range o.ConfigManager.GetAllVersions() {
 		var files []BintrayFile
 		if files, err = o.getVersionFiles(ver); err != nil {
-			return
+			cmd.Println("get version files error", ver, err)
+			continue
 		}
 
 		for _, formula := range o.ConfigManager.GetFormulas() {
