@@ -199,7 +199,7 @@ func (o *BuildOptions) build(versionFormula VersionFormula) (err error) {
 	}
 
 	err = syscall.Exec(jcli, []string{"jcli", "cwp", "--config-path",
-		fmt.Sprintf("formulas/%s.yaml", versionFormula.Formula),
+		fmt.Sprintf("formulas/%s.yaml", versionFormula.Formula.Name),
 		"--version", versionFormula.Version, "--tmp-dir", " tmp"}, os.Environ())
 	return
 }
