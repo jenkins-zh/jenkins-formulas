@@ -6,18 +6,19 @@ import (
 	"fmt"
 	"github.com/jenkins-zh/docker-zh/pkg/common"
 	"github.com/spf13/cobra"
+	"io"
 	"io/ioutil"
 	"net/http"
-	"os"
 	"os/exec"
-	"syscall"
 )
 
 type BuildOptions struct {
 	*common.Options
 
 	Username string
-	Password string
+	Token    string
+
+	DryRun bool
 
 	ConfigManager *common.CustomConfigManager
 }
@@ -33,6 +34,12 @@ func NewBuildCommand(commonOpts *common.Options) (cmd *cobra.Command) {
 		Short: "build the custom Jenkins",
 		RunE: buildOptions.Run,
 	}
+	cmd.Flags().StringVarP(&buildOptions.Username, "username", "u", "",
+		`The username of Bintray API`)
+	cmd.Flags().StringVarP(&buildOptions.Token, "token", "t", "",
+		`The token of Bintray API`)
+	cmd.Flags().BoolVarP(&buildOptions.DryRun, "dry-run", "", false,
+		`Do not really do the build action`)
 	return
 }
 
@@ -97,7 +104,7 @@ func (o *BuildOptions) Run(cmd *cobra.Command, args []string) (err error) {
 	cmd.Println("start to build all things")
 	cmd.Println("found new versionFormulas", len(buildMap))
 	for _, versionFormula := range buildMap {
-		if err = o.build(versionFormula); err != nil {
+		if err = o.build(versionFormula, cmd.OutOrStdout()); err != nil {
 			cmd.Println("failed in build", versionFormula)
 			return
 		}
@@ -155,8 +162,7 @@ func (o *BuildOptions) getVersionFiles(version string) (files []BintrayFile, err
 		return
 	}
 
-	files = make([]BintrayFile, 0)
-	request.SetBasicAuth(o.Username, o.Password)
+	request.SetBasicAuth(o.Username, o.Token)
 	if response, err = client.Get(api); err == nil {
 		var data []byte
 		if data, err = ioutil.ReadAll(response.Body); err == nil {
@@ -178,7 +184,7 @@ func (o *BuildOptions) checkVersion(version string) (exists bool, err error) {
 	}
 
 	bintrayVersion := &BintrayVersion{}
-	request.SetBasicAuth(o.Username, o.Password)
+	request.SetBasicAuth(o.Username, o.Token)
 	if response, err = client.Get(api); err == nil {
 		var data []byte
 		if data, err = ioutil.ReadAll(response.Body); err == nil {
@@ -192,14 +198,18 @@ func (o *BuildOptions) checkVersion(version string) (exists bool, err error) {
 	return
 }
 
-func (o *BuildOptions) build(versionFormula VersionFormula) (err error) {
-	var jcli string
-	if jcli, err = exec.LookPath("jcli"); err != nil {
-		return
-	}
-
-	err = syscall.Exec(jcli, []string{"jcli", "cwp", "--config-path",
+func (o *BuildOptions) build(versionFormula VersionFormula, writer io.Writer) (err error) {
+	args := []string{"cwp", "--config-path",
 		fmt.Sprintf("formulas/%s.yaml", versionFormula.Formula.Name),
-		"--version", versionFormula.Version, "--tmp-dir", " tmp"}, os.Environ())
+		"--version", versionFormula.Version, "--tmp-dir",
+		fmt.Sprintf("tmp-%s-%s", versionFormula.Formula.Name, versionFormula.Version)}
+	if o.DryRun {
+		fmt.Println(args)
+	} else {
+		cmd := exec.Command("jcli", args...)
+		cmd.Stderr = writer
+		cmd.Stdout = writer
+		err = cmd.Run()
+	}
 	return
 }
