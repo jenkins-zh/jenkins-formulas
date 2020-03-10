@@ -3,6 +3,11 @@ bundle:
   artifactId: "jenkins-zh"
   description: "Jenkins with Configuration as Code"
   vendor: "Chinese Jenkins Community"
+buildSettings:
+  docker:
+    base: "jenkins/jenkins:2.223"
+    tag: "jenkins-zh/jenkins-zh:2.223"
+    build: true
 war:
   groupId: "org.jenkins-ci.main"
   artifactId: "jenkins-war"

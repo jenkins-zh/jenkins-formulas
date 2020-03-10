@@ -16,8 +16,11 @@ linux:
 	chmod +x bin/linux/$(NAME)
 	rm -rf $(NAME) && ln -s bin/linux/$(NAME) cj
 
-check:
+cj-check:
 	./$(NAME) check
+
+cj-build:
+	./$(NAME) build
 
 build:
 	docker build . -t jenkins-zh:test

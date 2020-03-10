@@ -38,6 +38,25 @@ func (c *CustomConfigManager) Read(path string) (err error) {
 	return
 }
 
+func (c *CustomConfigManager) GetAllVersions() (allVers []string) {
+	allVers = make([]string, 0)
+	allVers = append(allVers, c.GetLTSList()...)
+	allVers = append(allVers, c.GetWeeklyList()...)
+	return
+}
+
+func (c *CustomConfigManager) GetLTSList() []string {
+	return c.CustomConfig.LTS
+}
+
+func (c *CustomConfigManager) GetWeeklyList() []string {
+	return c.CustomConfig.Weekly
+}
+
+func (c *CustomConfigManager) GetFormulas() []CustomFormula {
+	return c.CustomConfig.Formulas
+}
+
 func (c *CustomConfigManager) Save() (err error) {
 	if c.ConfigPath == "" {
 		err = fmt.Errorf("no config file path provide")

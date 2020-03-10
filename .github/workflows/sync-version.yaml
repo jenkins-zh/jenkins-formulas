@@ -1,8 +1,12 @@
 name: Sync Jenkins Version
 
+#on:
+#  schedule:
+#    - cron: "0 16 * * *"
 on:
-  schedule:
-    - cron: "0 16 * * *"
+  pull_request:
+    branches:
+      - master
 
 jobs:
   build:
@@ -17,4 +21,4 @@ jobs:
           go-version: 1.13
         id: go
       - name: Build & Update
-        run: make linux check
+        run: make linux cj-check cj-build
