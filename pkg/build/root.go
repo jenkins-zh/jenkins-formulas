@@ -54,7 +54,7 @@ func (o *BuildOptions) Run(cmd *cobra.Command, args []string) (err error) {
 		var files []BintrayFile
 		if files, err = o.getVersionFiles(ver); err != nil {
 			cmd.Println("get version files error", ver, err)
-			continue
+			files = make([]BintrayFile, 0)
 		}
 
 		for _, formula := range o.ConfigManager.GetFormulas() {
@@ -77,7 +77,7 @@ func (o *BuildOptions) Run(cmd *cobra.Command, args []string) (err error) {
 
 	cmd.Println("check the new formulas here")
 	for _, formula := range o.ConfigManager.GetFormulas() {
-		formulaFile := fmt.Sprintf("formulas/%s.yaml", formula)
+		formulaFile := fmt.Sprintf("formulas/%s.yaml", formula.Name)
 
 		var data []byte
 		if data, err = ioutil.ReadFile(formulaFile); err != nil {
