@@ -21,4 +21,9 @@ jobs:
           go-version: 1.13
         id: go
       - name: Build & Update
-        run: make linux cj-check cj-build
+        run: |
+          wget https://dl.bintray.com/jenkins-zh/generic/jenkins-cli/dev/jcli-linux-amd64.tar.gz
+          tar xzvf jcli-linux-amd64.tar.gz
+          export PATH=.:$PATH
+          which jcli
+          make linux cj-check cj-build
