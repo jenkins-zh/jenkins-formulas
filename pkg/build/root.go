@@ -9,6 +9,7 @@ import (
 	"io"
 	"io/ioutil"
 	"net/http"
+	"os"
 	"os/exec"
 )
 
@@ -104,9 +105,15 @@ func (o *BuildOptions) Run(cmd *cobra.Command, args []string) (err error) {
 	cmd.Println("start to build all things")
 	cmd.Println("found new versionFormulas", len(buildMap))
 	for _, versionFormula := range buildMap {
-		if err = o.build(versionFormula, cmd.OutOrStdout()); err != nil {
+		var path string
+		if path, err = o.build(versionFormula, cmd.OutOrStdout()); err != nil {
 			cmd.Println("failed in build", versionFormula)
 			return
+		} else {
+			err = o.upload(path, versionFormula.Version, versionFormula.Formula.Name)
+			if err != nil {
+				fmt.Println("upload error", err)
+			}
 		}
 	}
 	return
@@ -198,7 +205,7 @@ func (o *BuildOptions) checkVersion(version string) (exists bool, err error) {
 	return
 }
 
-func (o *BuildOptions) build(versionFormula VersionFormula, writer io.Writer) (err error) {
+func (o *BuildOptions) build(versionFormula VersionFormula, writer io.Writer) (path string, err error) {
 	args := []string{"cwp", "--config-path",
 		fmt.Sprintf("formulas/%s.yaml", versionFormula.Formula.Name),
 		"--version", versionFormula.Version, "--tmp-dir",
@@ -210,6 +217,44 @@ func (o *BuildOptions) build(versionFormula VersionFormula, writer io.Writer) (e
 		cmd.Stderr = writer
 		cmd.Stdout = writer
 		err = cmd.Run()
+		path = fmt.Sprintf("tmp-%s-%s/output/target/jenkins-zh-%s.war", versionFormula.Formula.Name,
+			versionFormula.Version, versionFormula.Version)
+	}
+	return
+}
+
+func (o *BuildOptions) upload(filepath, version, formula string) (err error) {
+	client := &http.Client{}
+	api := fmt.Sprintf("https://api.bintray.com/content/jenkins-zh/generic/jenkins/%s/jenkins-%s.war", version, formula)
+
+	if o.DryRun {
+		fmt.Printf("upload file by %s\n", api)
+		return
+	}
+
+//	curl -T tmp-pipeline/output/target/jenkins-zh-$VERSION.war -ulinuxsuren:${{ secrets.BINTRAY_TOKEN }} \
+//	-H "X-Bintray-Package:jenkins" -H "X-Bintray-Version:$VERSION" \
+//https://api.bintray.com/content/jenkins-zh/generic/jenkins/$VERSION/jenkins-pipeline-zh.war
+
+	var request *http.Request
+	var response *http.Response
+	data, err := os.Open(filepath)
+	if err != nil {
+		return
+	}
+	defer data.Close()
+	if request, err = http.NewRequest("PUT", api, data); err != nil {
+		return
+	}
+	request.Header.Add("X-Bintray-Package", "jenkins")
+	request.Header.Add("X-Bintray-Version", version)
+	request.Header.Add("X-Bintray-Publish", "1")
+	request.Header.Add("X-Bintray-Override", "1")
+	request.Header.Add("X-Bintray-Explode", "1")
+
+	request.SetBasicAuth(o.Username, o.Token)
+	if response, err = client.Do(request); err == nil {
+		fmt.Println(response.StatusCode)
 	}
 	return
 }
