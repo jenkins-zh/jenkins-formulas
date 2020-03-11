@@ -250,7 +250,7 @@ func (o *BuildOptions) upload(filepath, version, formula string) (err error) {
 	request.Header.Add("X-Bintray-Version", version)
 	request.Header.Add("X-Bintray-Publish", "1")
 	request.Header.Add("X-Bintray-Override", "1")
-	request.Header.Add("X-Bintray-Explode", "1")
+	request.Header.Add("X-Bintray-Explode", "0")
 
 	request.SetBasicAuth(o.Username, o.Token)
 	response, err = client.Do(request)
