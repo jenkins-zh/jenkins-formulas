@@ -1,11 +1,11 @@
-Formulas:
-- MD5: c7689e6aa9c759f18eeb18ad8706b57b
-  Name: pipeline
-- MD5: 84237988dfc64dbe5571f0b4b08506d0
-  Name: zh
-LTS:
+formulas:
+- md5: c7689e6aa9c759f18eeb18ad8706b57b
+  name: pipeline
+- md5: 84237988dfc64dbe5571f0b4b08506d0
+  name: zh
+lts:
 - 2.204.5
-Weekly:
+weekly:
 - "2.223"
 - "2.224"
 - "2.225"
