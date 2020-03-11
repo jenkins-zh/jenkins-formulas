@@ -30,8 +30,7 @@ jobs:
           export PATH=.:$PATH
           make linux
           docker login --username ${{ secrets.DOCKER_HUB_USER }} --password ${{secrets.DOCKER_HUB_TOKEN}}
-#          ./cj build --username ${{ secrets.BINTRAY_USER }} --token ${{ secrets.BINTRAY_TOKEN }}
-          ./cj build --username linuxsuren --token 7e267428c34bf9183bf2312c9b0261dc83015b0e
+          ./cj build --username ${{ secrets.BINTRAY_USER }} --token ${{ secrets.BINTRAY_TOKEN }}
 
 #          wget https://dl.bintray.com/jenkins-zh/generic/jenkins-cli/dev/jcli-linux-amd64.tar.gz
 #          tar xzvf jcli-linux-amd64.tar.gz
