@@ -227,8 +227,8 @@ func (o *BuildOptions) upload(filepath, version, formula string) (err error) {
 	client := &http.Client{}
 	api := fmt.Sprintf("https://api.bintray.com/content/jenkins-zh/generic/jenkins/%s/jenkins-%s.war", version, formula)
 
+	fmt.Printf("upload file by %s\n", api)
 	if o.DryRun {
-		fmt.Printf("upload file by %s\n", api)
 		return
 	}
 
@@ -253,8 +253,15 @@ func (o *BuildOptions) upload(filepath, version, formula string) (err error) {
 	request.Header.Add("X-Bintray-Explode", "1")
 
 	request.SetBasicAuth(o.Username, o.Token)
-	if response, err = client.Do(request); err == nil {
-		fmt.Println(response.StatusCode)
+	response, err = client.Do(request)
+
+	if response != nil {
+		fmt.Println("StatusCode", response.StatusCode, "response", response.Body)
+
+		var data []byte
+		if data, err = ioutil.ReadAll(response.Body); err == nil {
+			fmt.Println("response", string(data))
+		}
 	}
 	return
 }
