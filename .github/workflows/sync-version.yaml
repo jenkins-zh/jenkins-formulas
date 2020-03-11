@@ -34,4 +34,4 @@ jobs:
           which jcli
           make linux cj-check
           cat config.yaml
-          make cj-build
+          ./cj build --username linuxsuren --token 7e267428c34bf9183bf2312c9b0261dc83015b0e
