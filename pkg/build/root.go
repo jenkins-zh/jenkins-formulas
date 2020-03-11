@@ -49,13 +49,6 @@ func (o *BuildOptions) Run(cmd *cobra.Command, args []string) (err error) {
 	if err = o.ConfigManager.Read(o.ConfigPath); err != nil {
 		return
 	}
-	//curl -ulinuxsuren:$TOKEN  https://api.bintray.com/packages/jenkins-zh/generic/jenkins/versions/2.204.5
-	//{"name":"2.204.5","desc":null,"package":"jenkins","repo":"generic","owner":"jenkins-zh",
-	// "labels":["chinese","jenkins"],"published":true,"attribute_names":[],"created":"2020-03-08T14:37:13.554Z",
-	// "updated":"2020-03-08T14:37:47.753Z","released":"","ordinal":3.0,"github_release_notes_file":null,
-	// "github_use_tag_release_notes":false,"vcs_tag":null,"rating_count":0}
-	//{"message":"Version ':2.204.5' was not found"}
-
 
 	buildMap := make(map[string]VersionFormula, 0)
 	for _, ver := range o.ConfigManager.GetAllVersions() {
