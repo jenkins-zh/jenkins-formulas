@@ -181,10 +181,15 @@ func (o *BuildOptions) getVersionFiles(version string) (files []BintrayFile, err
 	}
 
 	request.SetBasicAuth(o.Username, o.Token)
-	if response, err = client.Get(api); err == nil {
+	if response, err = client.Get(api); err == nil && response.StatusCode == 200 {
 		var data []byte
 		if data, err = ioutil.ReadAll(response.Body); err == nil {
 			err = json.Unmarshal(data, files)
+		}
+	} else if response != nil {
+		var data []byte
+		if data, err = ioutil.ReadAll(response.Body); err == nil {
+			fmt.Println("response", string(data))
 		}
 	}
 	return
