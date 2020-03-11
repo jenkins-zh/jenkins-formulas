@@ -10,25 +10,37 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - name: Set up JDK 1.8
-        uses: actions/setup-java@v1
+      - name: Set up Go 1.13
+        uses: actions/setup-go@v1
         with:
-          java-version: 1.8
-
-      - name: Generate jenkins.war
+          go-version: 1.13
+        id: go
+      - name: Cache
+        uses: actions/cache@v1.1.2
+        with:
+          path: ~/.m2
+          key: maven
+          restore-keys: maven
+      - name: Build & Update
         env:
           VERSION: 2.223
         run: |
           wget https://dl.bintray.com/jenkins-zh/generic/jenkins-cli/dev/jcli-linux-amd64.tar.gz
           tar xzvf jcli-linux-amd64.tar.gz
-          ./jcli cwp --config-path jenkins-zh.yaml --version $VERSION --tmp-dir tmp
-          ./jcli cwp --config-path formulas/pipeline.yaml --version $VERSION --tmp-dir tmp-pipeline
-          
-          curl -ulinuxsuren:${{ secrets.BINTRAY_TOKEN }} -X DELETE https://api.bintray.com/packages/jenkins-zh/generic/jenkins-cli/versions/$VERSION
-          curl -T tmp/output/target/jenkins-zh-$VERSION.war -ulinuxsuren:${{ secrets.BINTRAY_TOKEN }} \
-            -H "X-Bintray-Package:jenkins" -H "X-Bintray-Version:$VERSION" \
-            https://api.bintray.com/content/jenkins-zh/generic/jenkins/$VERSION/jenkins-zh.war
-          curl -T tmp-pipeline/output/target/jenkins-zh-$VERSION.war -ulinuxsuren:${{ secrets.BINTRAY_TOKEN }} \
-            -H "X-Bintray-Package:jenkins" -H "X-Bintray-Version:$VERSION" \
-            https://api.bintray.com/content/jenkins-zh/generic/jenkins/$VERSION/jenkins-pipeline-zh.war
-          curl -X POST -ulinuxsuren:${{ secrets.BINTRAY_TOKEN }} https://api.bintray.com/content/jenkins-zh/generic/jenkins/$VERSION/publish
+          export PATH=.:$PATH
+          make linux
+          ./cj build --username ${{ secrets.BINTRAY_USER }} --token ${{ secrets.BINTRAY_TOKEN }}
+
+#          wget https://dl.bintray.com/jenkins-zh/generic/jenkins-cli/dev/jcli-linux-amd64.tar.gz
+#          tar xzvf jcli-linux-amd64.tar.gz
+#          ./jcli cwp --config-path jenkins-zh.yaml --version $VERSION --tmp-dir tmp
+#          ./jcli cwp --config-path formulas/pipeline.yaml --version $VERSION --tmp-dir tmp-pipeline
+#
+#          curl -ulinuxsuren:${{ secrets.BINTRAY_TOKEN }} -X DELETE https://api.bintray.com/packages/jenkins-zh/generic/jenkins-cli/versions/$VERSION
+#          curl -T tmp/output/target/jenkins-zh-$VERSION.war -ulinuxsuren:${{ secrets.BINTRAY_TOKEN }} \
+#            -H "X-Bintray-Package:jenkins" -H "X-Bintray-Version:$VERSION" \
+#            https://api.bintray.com/content/jenkins-zh/generic/jenkins/$VERSION/jenkins-zh.war
+#          curl -T tmp-pipeline/output/target/jenkins-zh-$VERSION.war -ulinuxsuren:${{ secrets.BINTRAY_TOKEN }} \
+#            -H "X-Bintray-Package:jenkins" -H "X-Bintray-Version:$VERSION" \
+#            https://api.bintray.com/content/jenkins-zh/generic/jenkins/$VERSION/jenkins-pipeline-zh.war
+#          curl -X POST -ulinuxsuren:${{ secrets.BINTRAY_TOKEN }} https://api.bintray.com/content/jenkins-zh/generic/jenkins/$VERSION/publish
