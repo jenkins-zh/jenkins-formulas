@@ -2,7 +2,7 @@ package common
 
 import (
 	"fmt"
-	"github.com/ghodss/yaml"
+	"gopkg.in/yaml.v2"
 	"io/ioutil"
 )
 

@@ -33,9 +33,9 @@ jobs:
           export PATH=.:$PATH
           make linux cj-check
           cat config.yaml
+          ./cj build --username ${{ secrets.BINTRAY_USER }} --token ${{ secrets.BINTRAY_TOKEN }}
           git config --local user.email "361981269@qq.com"
           git config --local user.name "rick"
           git add config.yaml
           git commit -m 'Auto commit by rick bot'
           git push https://linuxsuren:${{ secrets.GITHUB_SECRETS }}@github.com/jenkins-zh/docker-zh.git
-          ./cj build --username ${{ secrets.BINTRAY_USER }} --token ${{ secrets.BINTRAY_TOKEN }}

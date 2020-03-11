@@ -114,7 +114,25 @@ func (o *BuildOptions) Run(cmd *cobra.Command, args []string) (err error) {
 			if err != nil {
 				fmt.Println("upload error", err)
 			}
+
+			err = o.dockerPush(versionFormula.Version, versionFormula.Formula.Name, cmd.OutOrStdout())
+			if err != nil {
+				fmt.Println("docker push error", err)
+			}
 		}
+	}
+	return
+}
+
+func (o *BuildOptions) dockerPush(version, formula string, writer io.Writer) (err error) {
+	args := []string{"push", fmt.Sprintf("jenkins-zh/jenkins-%s:%s", formula, version)}
+	if o.DryRun {
+		fmt.Println(args)
+	} else {
+		cmd := exec.Command("docker", args...)
+		cmd.Stderr = writer
+		cmd.Stdout = writer
+		err = cmd.Run()
 	}
 	return
 }
@@ -206,8 +224,17 @@ func (o *BuildOptions) checkVersion(version string) (exists bool, err error) {
 }
 
 func (o *BuildOptions) build(versionFormula VersionFormula, writer io.Writer) (path string, err error) {
-	args := []string{"cwp", "--config-path",
-		fmt.Sprintf("formulas/%s.yaml", versionFormula.Formula.Name),
+	configPathTemplate := fmt.Sprintf("formulas/%s.yaml", versionFormula.Formula.Name)
+
+	var configPath string
+	if configPath, err = common.RenderTemplate(configPathTemplate, map[string]string{
+		"version": versionFormula.Version,
+	}); err != nil {
+		return
+	}
+	defer os.RemoveAll(configPath)
+
+	args := []string{"cwp", "--config-path", configPath,
 		"--version", versionFormula.Version, "--tmp-dir",
 		fmt.Sprintf("tmp-%s-%s", versionFormula.Formula.Name, versionFormula.Version)}
 	if o.DryRun {
@@ -231,10 +258,6 @@ func (o *BuildOptions) upload(filepath, version, formula string) (err error) {
 	if o.DryRun {
 		return
 	}
-
-//	curl -T tmp-pipeline/output/target/jenkins-zh-$VERSION.war -ulinuxsuren:${{ secrets.BINTRAY_TOKEN }} \
-//	-H "X-Bintray-Package:jenkins" -H "X-Bintray-Version:$VERSION" \
-//https://api.bintray.com/content/jenkins-zh/generic/jenkins/$VERSION/jenkins-pipeline-zh.war
 
 	var request *http.Request
 	var response *http.Response

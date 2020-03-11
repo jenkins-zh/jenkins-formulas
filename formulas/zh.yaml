@@ -5,14 +5,14 @@ bundle:
   vendor: "Chinese Jenkins Community"
 buildSettings:
   docker:
-    base: "jenkins/jenkins:2.223"
-    tag: "jenkins-zh/jenkins-zh:2.223"
+    base: "jenkins/jenkins:{{.version}}"
+    tag: "jenkins-zh/jenkins-zh:{{.version}}"
     build: true
 war:
   groupId: "org.jenkins-ci.main"
   artifactId: "jenkins-war"
   source:
-    version: 2.223
+    version: {{.version}}
 plugins:
   - groupId: "org.jenkins-ci.plugins"
     artifactId: "localization-zh-cn"

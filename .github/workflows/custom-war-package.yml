@@ -29,6 +29,7 @@ jobs:
           tar xzvf jcli-linux-amd64.tar.gz
           export PATH=.:$PATH
           make linux
+          docker login --username ${{ secrets.DOCKER_HUB_USER }} --password ${{secrets.DOCKER_HUB_TOKEN}}
           ./cj build --username ${{ secrets.BINTRAY_USER }} --token ${{ secrets.BINTRAY_TOKEN }}
 
 #          wget https://dl.bintray.com/jenkins-zh/generic/jenkins-cli/dev/jcli-linux-amd64.tar.gz
