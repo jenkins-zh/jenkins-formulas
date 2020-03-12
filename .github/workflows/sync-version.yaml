@@ -1,12 +1,8 @@
 name: Sync Jenkins Version
 
-#on:
-#  schedule:
-#    - cron: "0 16 * * *"
 on:
-  pull_request:
-    branches:
-      - master
+  schedule:
+    - cron: "0 16 * * *"
 
 jobs:
   build:
@@ -33,6 +29,7 @@ jobs:
           export PATH=.:$PATH
           make linux cj-check
           cat config.yaml
+          git fetch --unshallow
           git checkout master
           git config --local user.email "361981269@qq.com"
           git config --local user.name "rick"
