@@ -6,7 +6,7 @@ bundle:
 buildSettings:
   docker:
     base: "jenkins/jenkins:{{.version}}"
-    tag: "jenkins-zh/jenkins-zh:{{.version}}"
+    tag: "jenkinszh/jenkins-zh:{{.version}}"
     build: true
 war:
   groupId: "org.jenkins-ci.main"

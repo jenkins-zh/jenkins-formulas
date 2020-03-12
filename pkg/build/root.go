@@ -19,6 +19,9 @@ type BuildOptions struct {
 	Username string
 	Token    string
 
+	DockerUsername string
+	DockerToken string
+
 	DryRun bool
 
 	ConfigManager *common.CustomConfigManager
@@ -39,6 +42,10 @@ func NewBuildCommand(commonOpts *common.Options) (cmd *cobra.Command) {
 		`The username of Bintray API`)
 	cmd.Flags().StringVarP(&buildOptions.Token, "token", "t", "",
 		`The token of Bintray API`)
+	cmd.Flags().StringVarP(&buildOptions.DockerUsername, "docker-username", "", "",
+		`The username of docker hub`)
+	cmd.Flags().StringVarP(&buildOptions.DockerToken, "docker-token", "", "",
+		`The token of docker hub`)
 	cmd.Flags().BoolVarP(&buildOptions.DryRun, "dry-run", "", false,
 		`Do not really do the build action`)
 	return
@@ -97,6 +104,10 @@ func (o *BuildOptions) Run(cmd *cobra.Command, args []string) (err error) {
 
 	cmd.Println("start to build all things")
 	cmd.Println("found new versionFormulas", len(buildMap))
+	if err = o.dockerLogin(cmd.OutOrStdout()); err != nil {
+		return
+	}
+
 	for _, versionFormula := range buildMap {
 		var path string
 		if path, err = o.build(versionFormula, cmd.OutOrStdout()); err != nil {
@@ -117,8 +128,25 @@ func (o *BuildOptions) Run(cmd *cobra.Command, args []string) (err error) {
 	return
 }
 
+func (o *BuildOptions) dockerLogin(writer io.Writer) (err error) {
+	if o.DockerUsername == "" || o.DockerToken == "" {
+		return
+	}
+
+	args := []string{"login", "--username", o.DockerUsername, "--password", o.DockerToken}
+	if o.DryRun {
+		fmt.Println(args)
+	} else {
+		cmd := exec.Command("docker", args...)
+		cmd.Stderr = writer
+		cmd.Stdout = writer
+		err = cmd.Run()
+	}
+	return
+}
+
 func (o *BuildOptions) dockerPush(version, formula string, writer io.Writer) (err error) {
-	args := []string{"push", fmt.Sprintf("jenkins-zh/jenkins-%s:%s", formula, version)}
+	args := []string{"push", fmt.Sprintf("jenkinszh/jenkins-%s:%s", formula, version)}
 	if o.DryRun {
 		fmt.Println(args)
 	} else {
