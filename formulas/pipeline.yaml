@@ -3,11 +3,16 @@ bundle:
   artifactId: "jenkins-zh"
   description: "Jenkins with Pipeline suite"
   vendor: "Chinese Jenkins Community"
+buildSettings:
+  docker:
+    base: "jenkins/jenkins:{{.version}}"
+    tag: "jenkins-zh/jenkins-pipeline:{{.version}}"
+    build: true
 war:
   groupId: "org.jenkins-ci.main"
   artifactId: "jenkins-war"
   source:
-    version: 2.223
+    version: {{.version}}
 plugins:
   - groupId: "org.jenkins-ci.plugins"
     artifactId: "localization-zh-cn"
