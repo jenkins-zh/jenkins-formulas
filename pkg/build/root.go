@@ -149,12 +149,6 @@ type BintrayVersion struct {
 	Released string
 	Message string
 }
-//[{"name":"jenkins-zh.war","path":"jenkins/2.204.5/jenkins-zh.war","repo":"generic","package":"jenkins",
-// "version":"2.204.5","owner":"jenkins-zh","created":"2020-03-08T14:37:18.206Z","size":65771513,
-// "sha1":"6f03423fdee9fadd332736cfc4e037bed8853c90","sha256":"526ec96de6b32cda2ef16a63ef9c92a32485254737f76606c2105546059204b5"},
-// {"name":"jenkins-pipeline-zh.war","path":"jenkins/2.204.5/jenkins-pipeline-zh.war","repo":"generic",
-// "package":"jenkins","version":"2.204.5","owner":"jenkins-zh","created":"2020-03-08T14:37:36.865Z",
-// "size":93238314,"sha1":"71283205f0d18cb3824288e0960a7f0c5ade8a8b","sha256":"7e4bb1d54db077fb73f917cf134d01fb70f4c2e2d7c5b199c8244804fe2c047f"}]
 
 type BintrayFile struct {
 	Name string

@@ -33,7 +33,7 @@ jobs:
           export PATH=.:$PATH
           make linux cj-check
           cat config.yaml
-          ./cj build --username linuxsuren --token 7e267428c34bf9183bf2312c9b0261dc83015b0e
+          git checkout master
           git config --local user.email "361981269@qq.com"
           git config --local user.name "rick"
           git add config.yaml
