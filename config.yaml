@@ -1,8 +1,8 @@
 formulas:
-- md5: c7689e6aa9c759f18eeb18ad8706b57b
-  name: pipeline
-- md5: 84237988dfc64dbe5571f0b4b08506d0
-  name: zh
+- name: pipeline
+  md5: c7689e6aa9c759f18eeb18ad8706b57b
+- name: zh
+  md5: 84237988dfc64dbe5571f0b4b08506d0
 lts:
 - 2.204.5
 weekly:
