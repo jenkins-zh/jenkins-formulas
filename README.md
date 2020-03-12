@@ -35,8 +35,7 @@
 | 配置即代码 | `jenkins-zh.war` |
 | 配置即代码 + 流水线| `jenkins-pipeline-zh.war` |
 
-## 贡献
-所有的 `LTS` 版本都会分别创建对应的分支，`Weekly` 版本则是在 master 分支上来进行维护。
+想要分享一个配方？只要按照[配方的介绍](formulas/README.md)提交一个 Pull Request 后，你就可以使用了。
 
 ## 参考
 [Jenkins 官方 Docker Hub 地址](https://hub.docker.com/r/jenkins/jenkins/tags)
