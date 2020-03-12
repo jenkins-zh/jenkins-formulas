@@ -30,10 +30,10 @@
 ## 配方
 特定的用户场景下，通常会使用一组 Jenkins 插件及其配置，下面是一些常用的开箱即用的方案（也就是这里说的配方）：
 
-| 配方 | 文件名 |
-|---|---|
-| 配置即代码 | `jenkins-zh.war` |
-| 配置即代码 + 流水线| `jenkins-pipeline-zh.war` |
+| 配方 | 文件名 | 镜像 |
+|---|---|---|
+| 配置即代码 | `jenkins-zh.war` | `jenkinszh/jenkins-zh` [![Docker Pulls](https://img.shields.io/docker/pulls/jenkinszh/jenkins-zh.svg)](https://hub.docker.com/r/jenkinszh/jenkins-zh/tags) |
+| 配置即代码 + 流水线| `jenkins-pipeline-zh.war` | `jenkinszh/jenkins-pipeline` [![Docker Pulls](https://img.shields.io/docker/pulls/jenkinszh/jenkins-zh.svg)](https://hub.docker.com/r/jenkinszh/jenkins-pipeline/tags) |
 
 ## 贡献
 所有的 `LTS` 版本都会分别创建对应的分支，`Weekly` 版本则是在 master 分支上来进行维护。
