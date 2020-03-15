@@ -26,11 +26,11 @@ jenkins:
     - kubernetes:
         name: kubernetes
         credentialsId: ""
-        jenkinsTunnel:
-        jenkinsUrl:
+        jenkinsTunnel: jenkins-agent.default:50000
+        jenkinsUrl: http://jenkins.default:8080
         maxRequestsPerHostStr: "32"
         namespace: default
-        serverUrl:
+        serverUrl: https://kubernetes.default
         podRetention: never
         containerCapStr: ""
         skipTlsVerify: true
