@@ -26,6 +26,60 @@ plugins:
     artifactId: "workflow-aggregator"
     source:
       version: "2.6"
+  - groupId: "org.jenkins-ci.plugins"
+    artifactId: "script-security"
+    source:
+      version: 1.71
+  - groupId: "org.jenkins-ci.plugins"
+    artifactId: "jackson2-api"
+    source:
+      version: 2.10.3
+  - groupId: "org.jenkins-ci.plugins"
+    artifactId: "credentials"
+    source:
+      version: 2.3.3
+  - groupId: "org.jenkins-ci.plugins.workflow"
+    artifactId: "workflow-step-api"
+    source:
+      version: 2.22
+  - groupId: "org.jenkins-ci.plugins"
+    artifactId: "structs"
+    source:
+      version: 1.20
+  - groupId: "org.jenkins-ci.plugins"
+    artifactId: "cloudbees-folder"
+    source:
+      version: 6.11
+  - groupId: "org.jenkins-ci.plugins"
+    artifactId: "mailer"
+    source:
+      version: 1.30
+  - groupId: "org.jenkins-ci.plugins.workflow"
+    artifactId: "workflow-api"
+    source:
+      version: 2.40
+  - groupId: "org.jenkinsci.plugins"
+    artifactId: "pipeline-model-api"
+    source:
+      version: 1.6.0
+  - groupId: "org.jenkins-ci.plugins.workflow"
+    artifactId: "workflow-cps"
+    source:
+      version: 2.80
+  - groupId: "org.jenkins-ci.plugins.workflow"
+    artifactId: "workflow-support"
+    source:
+      version: 3.4
+  # Pipeline: Declarative Extension Points API
+  - groupId: "org.jenkinsci.plugins"
+    artifactId: "pipeline-model-extensions"
+    source:
+      version: 1.6.0
+  # Pipeline: Job
+  - groupId: "org.jenkins-ci.plugins.workflow"
+    artifactId: "workflow-job"
+    source:
+      version: 2.33
 casc:
   - id: "jcasc"
     source:
