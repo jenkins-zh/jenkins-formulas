@@ -33,7 +33,7 @@ Below are some out-of-the-box solutions which I call them formulas
 | Configuration as Code + Pipeline| `jenkins-pipeline.war` | `jenkinszh/jenkins-pipeline` [![Docker Pulls](https://img.shields.io/docker/pulls/jenkinszh/jenkins-pipeline.svg)](https://hub.docker.com/r/jenkinszh/jenkins-pipeline/tags) |
 | CASC + Pipeline + K8s | `jenkins-k8s.war` | `jenkinszh/jenkins-k8s`[![Docker Pulls](https://img.shields.io/docker/pulls/jenkinszh/jenkins-k8s.svg)](https://hub.docker.com/r/jenkinszh/jenkins-k8s/tags) |
 
-Want to contribute a formula? Please learn it from [here](formulas/README.md).
+Want to contribute a formula? Please learn how to create it from [here](formulas/README.md).
 
 ## References
 
