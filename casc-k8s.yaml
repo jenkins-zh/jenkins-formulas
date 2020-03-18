@@ -58,3 +58,72 @@ jenkins:
                 resourceRequestMemory: 750M
                 privileged: false
                 ttyEnabled: true
+          - name: maven
+            label: maven
+            podRetention: never
+            nodeUsageMode: NORMAL
+            instanceCapStr: "5"
+            containers:
+              - name: maven
+                args: cat
+                command: /bin/sh -c
+                image: maven
+                livenessProbe:
+                  failureThreshold: 0
+                  initialDelaySeconds: 0
+                  periodSeconds: 0
+                  successThreshold: 0
+                  timeoutSeconds: 0
+                alwaysPullImage: false
+                resourceLimitCpu: 1
+                resourceLimitMemory: 2500M
+                resourceRequestCpu: 500m
+                resourceRequestMemory: 750M
+                privileged: false
+                ttyEnabled: true
+          - name: python
+            label: python
+            podRetention: never
+            nodeUsageMode: NORMAL
+            instanceCapStr: "5"
+            containers:
+              - name: python
+                args: cat
+                command: /bin/sh -c
+                image: python
+                livenessProbe:
+                  failureThreshold: 0
+                  initialDelaySeconds: 0
+                  periodSeconds: 0
+                  successThreshold: 0
+                  timeoutSeconds: 0
+                alwaysPullImage: false
+                resourceLimitCpu: 1
+                resourceLimitMemory: 2500M
+                resourceRequestCpu: 500m
+                resourceRequestMemory: 750M
+                privileged: false
+                ttyEnabled: true
+          - name: java
+            label: java
+            podRetention: never
+            nodeUsageMode: NORMAL
+            instanceCapStr: "5"
+            containers:
+              - name: java
+                args: cat
+                command: /bin/sh -c
+                image: openjdk
+                livenessProbe:
+                  failureThreshold: 0
+                  initialDelaySeconds: 0
+                  periodSeconds: 0
+                  successThreshold: 0
+                  timeoutSeconds: 0
+                alwaysPullImage: false
+                resourceLimitCpu: 1
+                resourceLimitMemory: 2500M
+                resourceRequestCpu: 500m
+                resourceRequestMemory: 750M
+                privileged: false
+                ttyEnabled: true
