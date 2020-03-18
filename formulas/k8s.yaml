@@ -7,7 +7,7 @@ buildSettings:
   docker:
     base: "jenkins/jenkins:{{.version}}"
     tag: "jenkinszh/jenkins-k8s:{{.version}}"
-    build: false
+    build: true
 war:
   groupId: "org.jenkins-ci.main"
   artifactId: "jenkins-war"
