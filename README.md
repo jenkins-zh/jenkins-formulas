@@ -31,6 +31,7 @@ Below are some out-of-the-box solutions which I call them formulas
 |---|---|---|
 | Configuration as Code | `jenkins-zh.war` | `jenkinszh/jenkins-zh` [![Docker Pulls](https://img.shields.io/docker/pulls/jenkinszh/jenkins-zh.svg)](https://hub.docker.com/r/jenkinszh/jenkins-zh/tags) |
 | Configuration as Code + Pipeline| `jenkins-pipeline.war` | `jenkinszh/jenkins-pipeline` [![Docker Pulls](https://img.shields.io/docker/pulls/jenkinszh/jenkins-pipeline.svg)](https://hub.docker.com/r/jenkinszh/jenkins-pipeline/tags) |
+| Multi-branch Pipeline（GitHub、GitLab、Bitbucket）| `jenkins-multi-pipeline-zh.war` | `jenkinszh/jenkins-multi-pipeline-zh` [![Docker Pulls](https://img.shields.io/docker/pulls/jenkinszh/jenkins-multi-pipeline-zh.svg)](https://hub.docker.com/r/jenkinszh/jenkins-multi-pipeline-zh/tags) |
 
 Want to contribute a formula? Please learn it from [here](formulas/README.md).
 
