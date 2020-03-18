@@ -1,4 +1,4 @@
-## Jenkins Customize for Chinese Users
+## Jenkins Customize
 Two forms of the distribution that you can find from here: docker image and jenkins.war file. All distributions include the following features:
 
 * With the [update center mirror](https://github.com/jenkins-zh/mirror-proxy) which serves in China
@@ -31,12 +31,13 @@ Below are some out-of-the-box solutions which I call them formulas
 |---|---|---|
 | Configuration as Code | `jenkins-zh.war` | `jenkinszh/jenkins-zh` [![Docker Pulls](https://img.shields.io/docker/pulls/jenkinszh/jenkins-zh.svg)](https://hub.docker.com/r/jenkinszh/jenkins-zh/tags) |
 | Configuration as Code + Pipeline| `jenkins-pipeline.war` | `jenkinszh/jenkins-pipeline` [![Docker Pulls](https://img.shields.io/docker/pulls/jenkinszh/jenkins-pipeline.svg)](https://hub.docker.com/r/jenkinszh/jenkins-pipeline/tags) |
+| CASC + Pipeline + K8s | `jenkins-k8s.war` | `jenkinszh/jenkins-k8s`[![Docker Pulls](https://img.shields.io/docker/pulls/jenkinszh/jenkins-k8s.svg)](https://hub.docker.com/r/jenkinszh/jenkins-k8s/tags) |
 
-Want to contribute a formula? Please learn it from [here](formulas/README.md).
+Want to contribute a formula? Please learn how to create it from [here](formulas/README.md).
 
 ## References
 
 [Jenkins Official Docker Hub](https://hub.docker.com/r/jenkins/jenkins/tags)
 
 ## Feedback
-该项目还处于早起阶段，我们欢迎任何人以任何形式帮助完善、提出改进建议。
+Any kind of contributions are very appreciate.
