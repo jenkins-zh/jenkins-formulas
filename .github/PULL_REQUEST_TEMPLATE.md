@@ -3,12 +3,11 @@
 ### Always
 
 - [ ] Make sure you are requesting to **pull a topic/feature/bugfix branch** (right side) and not your master branch!
-- [ ] Written well with PR title, we generate the [release notes](https://github.com/jenkins-zh/jenkins-cli/releases) base on that
+- [ ] Written well with PR title
 
-### For the bug fixes or features only
+### For new formulas
 
-- [ ] [Quality Gate Passed](https://sonarcloud.io/dashboard?id=jenkins-zh_jenkins-cli). Change this URL to your PR.
-- [ ] The coverage is xxx on the new lines
+- [ ] Have read through [the formulas guide](../formulas/README-zh.md)
 - [ ] I've tested it locally
 
 <!--
