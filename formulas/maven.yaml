@@ -37,7 +37,7 @@ plugins:
 casc:
   - id: "jcasc"
     source:
-      dir: maven.yaml
+      dir: casc-maven.yaml
 groovyHooks:
   - type: "init"
     id: "initScripts"
