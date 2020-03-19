@@ -58,8 +58,14 @@ plugins:
     artifactId: "workflow-api"
     source:
       version: 2.40
+  # Pipeline: Model API
   - groupId: "org.jenkinsci.plugins"
     artifactId: "pipeline-model-api"
+    source:
+      version: 1.6.0
+  # Pipeline: Declarative
+  - groupId: "org.jenkinsci.plugins"
+    artifactId: "pipeline-model-definition"
     source:
       version: 1.6.0
   - groupId: "org.jenkins-ci.plugins.workflow"
@@ -80,6 +86,26 @@ plugins:
     artifactId: "workflow-job"
     source:
       version: 2.33
+  # Pipeline: Basic Steps
+  - groupId: "org.jenkins-ci.plugins.workflow"
+    artifactId: "workflow-basic-steps"
+    source:
+      version: 2.18
+  # Pipeline: Nodes and Processes
+  - groupId: "org.jenkins-ci.plugins.workflow"
+    artifactId: "workflow-durable-task-step"
+    source:
+      version: 2.35
+  # Pipeline: SCM Step
+  - groupId: "org.jenkins-ci.plugins.workflow"
+    artifactId: "workflow-scm-step"
+    source:
+      version: 2.10
+  # SCM API Plugin
+  - groupId: "org.jenkins-ci.plugins"
+    artifactId: "scm-api"
+    source:
+      version: 2.4.1
 casc:
   - id: "jcasc"
     source:
