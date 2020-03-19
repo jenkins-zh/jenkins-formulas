@@ -38,8 +38,3 @@ casc:
   - id: "jcasc"
     source:
       dir: casc-maven.yaml
-groovyHooks:
-  - type: "init"
-    id: "initScripts"
-    source:
-      dir: maven-init.groovy
