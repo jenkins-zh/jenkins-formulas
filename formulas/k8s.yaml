@@ -1,12 +1,12 @@
 bundle:
   groupId: "io.github.linuxsuren"
   artifactId: "jenkins-zh"
-  description: "Jenkins with Pipeline suite"
+  description: "Jenkins with Kubernetes"
   vendor: "Chinese Jenkins Community"
 buildSettings:
   docker:
     base: "jenkins/jenkins:{{.version}}"
-    tag: "jenkinszh/jenkins-pipeline:{{.version}}"
+    tag: "jenkinszh/jenkins-k8s:{{.version}}"
     build: true
 war:
   groupId: "org.jenkins-ci.main"
@@ -17,7 +17,7 @@ plugins:
   - groupId: "org.jenkins-ci.plugins"
     artifactId: "localization-zh-cn"
     source:
-      version: 1.0.13
+      version: "1.0.13"
   - groupId: "io.jenkins"
     artifactId: "configuration-as-code"
     source:
@@ -26,6 +26,15 @@ plugins:
     artifactId: "workflow-aggregator"
     source:
       version: "2.6"
+  - groupId: "org.csanchez.jenkins.plugins"
+    artifactId: "kubernetes"
+    source:
+      version: "1.25.0"
+  # indirect dependencies
+  - groupId: "org.jenkinsci.plugins"
+    artifactId: "kubernetes-credentials"
+    source:
+      version: 0.6.2
   - groupId: "org.jenkins-ci.plugins"
     artifactId: "script-security"
     source:
@@ -34,6 +43,10 @@ plugins:
     artifactId: "jackson2-api"
     source:
       version: 2.10.3
+  - groupId: "org.jenkins-ci.plugins"
+    artifactId: "kubernetes-client-api"
+    source:
+      version: 4.8.0-1
   - groupId: "org.jenkins-ci.plugins"
     artifactId: "credentials"
     source:
@@ -58,14 +71,8 @@ plugins:
     artifactId: "workflow-api"
     source:
       version: 2.40
-  # Pipeline: Model API
   - groupId: "org.jenkinsci.plugins"
     artifactId: "pipeline-model-api"
-    source:
-      version: 1.6.0
-  # Pipeline: Declarative
-  - groupId: "org.jenkinsci.plugins"
-    artifactId: "pipeline-model-definition"
     source:
       version: 1.6.0
   - groupId: "org.jenkins-ci.plugins.workflow"
@@ -86,30 +93,55 @@ plugins:
     artifactId: "workflow-job"
     source:
       version: 2.33
-  # Pipeline: Basic Steps
-  - groupId: "org.jenkins-ci.plugins.workflow"
-    artifactId: "workflow-basic-steps"
+  #  Jenkins Apache HttpComponents Client 4.x API Plugin
+  - groupId: "org.jenkins-ci.plugins"
+    artifactId: "apache-httpcomponents-client-4-api"
     source:
-      version: 2.18
-  # Pipeline: Nodes and Processes
-  - groupId: "org.jenkins-ci.plugins.workflow"
-    artifactId: "workflow-durable-task-step"
+      version: 4.5.10-2.0
+  # Display URL API
+  - groupId: "org.jenkins-ci.plugins"
+    artifactId: "display-url-api"
     source:
-      version: 2.35
+      version: 2.3.2
+  #  Jenkins Git plugin
+  - groupId: "org.jenkins-ci.plugins"
+    artifactId: "git"
+    source:
+      version: 3.12.1
+  # Matrix Project Plugin
+  - groupId: "org.jenkins-ci.plugins"
+    artifactId: "matrix-project"
+    source:
+      version: 1.14
+  # SSH Credentials Plugin
+  - groupId: "org.jenkins-ci.plugins"
+    artifactId: "ssh-credentials"
+    source:
+      version: 1.18.1
+  # SCM API Plugin
+  - groupId: "org.jenkins-ci.plugins"
+    artifactId: "scm-api"
+    source:
+      version: 2.6.3
   # Pipeline: SCM Step
   - groupId: "org.jenkins-ci.plugins.workflow"
     artifactId: "workflow-scm-step"
     source:
       version: 2.10
-  # SCM API Plugin
+  #  Jenkins Git client plugin
   - groupId: "org.jenkins-ci.plugins"
-    artifactId: "scm-api"
+    artifactId: "git-client"
     source:
-      version: 2.4.1
+      version: 3.2.1
+  # Branch API Plugin
+  - groupId: "org.jenkins-ci.plugins"
+    artifactId: "branch-api"
+    source:
+      version: 2.5.4
 casc:
   - id: "jcasc"
     source:
-      dir: casc.yaml
+      dir: casc-k8s.yaml
 groovyHooks:
   - type: "init"
     id: "initScripts"
