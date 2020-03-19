@@ -5,14 +5,14 @@ bundle:
   vendor: "Chinese Jenkins Community"
 buildSettings:
   docker:
-    base: "jenkins/jenkins:{{.version}}"
-    tag: "jenkinszh/jenkins-pipeline:{{.version}}"
+    base: "jenkins/jenkins:lts"
+    tag: "jenkinszh/jenkins-pipeline-node:{{.version}}"
     build: true
 war:
   groupId: "org.jenkins-ci.main"
   artifactId: "jenkins-war"
   source:
-    version: {{.version}}
+    version: 2.204.5
 plugins:
   - groupId: "org.jenkins-ci.plugins"
     artifactId: "localization-zh-cn"
@@ -29,11 +29,95 @@ plugins:
   - groupId: "org.jenkins-ci.plugins"
     artifactId: "nodejs"
     source:
-      version: "1.3.4"
+      version: 1.3.4
   - groupId: "org.jenkins-ci.plugins"
-      artifactId: "git"
-      source:
-        version: "4.2.1"
+    artifactId: "script-security"
+    source:
+      version: 1.71
+  - groupId: "org.jenkins-ci.plugins"
+    artifactId: "structs"
+    source:
+      version: 1.20
+  - groupId: "org.jenkins-ci.plugins"
+    artifactId: "scm-api"
+    source:
+      version: 2.6.3
+  - groupId: "org.jenkins-ci.plugins"
+    artifactId: "docker-workflow"
+    source:
+      version: 1.23
+  - groupId: "org.jenkins-ci.plugins"
+    artifactId: "jackson2-api"
+    source:
+      version: 2.10.3
+  - groupId: "org.jenkins-ci.plugins"
+    artifactId: "cloudbees-folder"
+    source:
+      version: 6.11.1
+  - groupId: "org.jenkins-ci.plugins"
+    artifactId: "credentials"
+    source:
+      version: 2.3.3
+  - groupId: "org.jenkins-ci.plugins"
+    artifactId: "mailer"
+    source:
+      version: 1.30
+  - groupId: "org.jenkinsci.plugins"
+    artifactId: "pipeline-model-definition"
+    source:
+      version: 1.6.0
+  - groupId: "org.jenkinsci.plugins"
+    artifactId: "pipeline-model-api"
+    source:
+      version: 1.6.0
+  - groupId: "org.jenkinsci.plugins"
+    artifactId: "pipeline-model-extensions"
+    source:
+      version: 1.6.0
+  - groupId: "org.jenkins-ci.plugins"
+    artifactId: "pipeline-graph-analysis"
+    source:
+      version: 1.10
+  - groupId: "org.jenkins-ci.plugins.workflow"
+    artifactId: "workflow-basic-steps"
+    source:
+      version: 2.19
+  - groupId: "org.jenkins-ci.plugins.workflow"
+    artifactId: "workflow-cps-global-lib"
+    source:
+      version: 2.16
+  - groupId: "org.jenkins-ci.plugins.workflow"
+    artifactId: "workflow-multibranch"
+    source:
+      version: 2.21
+  - groupId: "org.jenkins-ci.plugins.workflow"
+    artifactId: "workflow-step-api"
+    source:
+      version: 2.22
+  - groupId: "org.jenkins-ci.plugins.workflow"
+    artifactId: "workflow-job"
+    source:
+      version: 2.33
+  - groupId: "org.jenkins-ci.plugins.workflow"
+    artifactId: "workflow-cps"
+    source:
+      version: 2.80
+  - groupId: "org.jenkins-ci.plugins.workflow"
+    artifactId: "workflow-support"
+    source:
+      version: 3.4
+  - groupId: "org.jenkins-ci.plugins.workflow"
+    artifactId: "workflow-durable-task-step"
+    source:
+      version: 2.35
+  - groupId: "org.jenkins-ci.plugins.workflow"
+    artifactId: "workflow-api"
+    source:
+      version: 2.40
+  - groupId: "org.jenkins-ci.plugins.workflow"
+    artifactId: "workflow-scm-step"
+    source:
+      version: 2.10
 casc:
   - id: "jcasc"
     source:
