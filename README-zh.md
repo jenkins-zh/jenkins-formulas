@@ -32,9 +32,9 @@
 
 | 配方 | 文件名 | 镜像 |
 |---|---|---|
-| 配置即代码 | `jenkins-zh.war` | `jenkinszh/jenkins-zh` [![Docker Pulls](https://img.shields.io/docker/pulls/jenkinszh/jenkins-zh.svg)](https://hub.docker.com/r/jenkinszh/jenkins-zh/tags) |
-| 配置即代码 + 流水线| `jenkins-pipeline.war` | `jenkinszh/jenkins-pipeline` [![Docker Pulls](https://img.shields.io/docker/pulls/jenkinszh/jenkins-pipeline.svg)](https://hub.docker.com/r/jenkinszh/jenkins-pipeline/tags) |
-| 配置即代码 + 流水线 + K8s | `jenkins-k8s.war` | `jenkinszh/jenkins-k8s`[![Docker Pulls](https://img.shields.io/docker/pulls/jenkinszh/jenkins-k8s.svg)](https://hub.docker.com/r/jenkinszh/jenkins-k8s/tags) |
+| 配置即代码 | `jenkins-zh.war` | `jenkinszh/jenkins-zh:2.204.5` [![Docker Pulls](https://img.shields.io/docker/pulls/jenkinszh/jenkins-zh.svg)](https://hub.docker.com/r/jenkinszh/jenkins-zh/tags) |
+| 配置即代码 + 流水线| `jenkins-pipeline.war` | `jenkinszh/jenkins-pipeline:2.204.5` [![Docker Pulls](https://img.shields.io/docker/pulls/jenkinszh/jenkins-pipeline.svg)](https://hub.docker.com/r/jenkinszh/jenkins-pipeline/tags) |
+| 配置即代码 + 流水线 + K8s | `jenkins-k8s.war` | `jenkinszh/jenkins-k8s:2.204.5` [![Docker Pulls](https://img.shields.io/docker/pulls/jenkinszh/jenkins-k8s.svg)](https://hub.docker.com/r/jenkinszh/jenkins-k8s/tags) |
 
 想要贡献一份配方？请在[这里](formulas/README-zh.md)学习如何提交配方。
 
