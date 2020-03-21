@@ -29,7 +29,7 @@ plugins:
   - groupId: "org.csanchez.jenkins.plugins"
     artifactId: "kubernetes"
     source:
-      version: "1.25.0"
+      version: "1.24.1"
   # indirect dependencies
   - groupId: "org.jenkinsci.plugins"
     artifactId: "kubernetes-credentials"
