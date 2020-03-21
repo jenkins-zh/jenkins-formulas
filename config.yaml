@@ -5,6 +5,8 @@ formulas:
   md5: 84237988dfc64dbe5571f0b4b08506d0
 - name: k8s
   md5: ""
+- name: multi-pipeline-zh
+    md5: ""
 lts:
 - 2.204.5
 weekly:
