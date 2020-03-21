@@ -1,0 +1,129 @@
+jenkins:
+  agentProtocols:
+    - "JNLP4-connect"
+    - "Ping"
+  authorizationStrategy:
+    loggedInUsersCanDoAnything:
+      allowAnonymousRead: false
+  disableRememberMe: false
+  labelString: master
+  mode: NORMAL
+  numExecutors: 0
+  primaryView:
+    all:
+      name: "all"
+  quietPeriod: 5
+  scmCheckoutRetryCount: 0
+  slaveAgentPort: 50000
+  updateCenter:
+    sites:
+      - id: "default"
+        url: "https://updates.jenkins-zh.cn/update-center.json"
+  views:
+    - all:
+        name: "all"
+  clouds:
+    - kubernetes:
+        name: kubernetes
+        credentialsId: ""
+        jenkinsTunnel: jenkins-agent.default:50000
+        jenkinsUrl: http://jenkins.default:8080
+        maxRequestsPerHostStr: "32"
+        namespace: default
+        serverUrl: https://kubernetes.default
+        podRetention: never
+        containerCapStr: ""
+        skipTlsVerify: true
+        templates:
+          - name: golang
+            label: golang
+            podRetention: never
+            nodeUsageMode: NORMAL
+            instanceCapStr: "5"
+            containers:
+              - name: golang
+                args: cat
+                command: /bin/sh -c
+                image: golang
+                livenessProbe:
+                  failureThreshold: 0
+                  initialDelaySeconds: 0
+                  periodSeconds: 0
+                  successThreshold: 0
+                  timeoutSeconds: 0
+                alwaysPullImage: false
+                resourceLimitCpu: 1
+                resourceLimitMemory: 2500M
+                resourceRequestCpu: 500m
+                resourceRequestMemory: 750M
+                privileged: false
+                ttyEnabled: true
+          - name: maven
+            label: maven
+            podRetention: never
+            nodeUsageMode: NORMAL
+            instanceCapStr: "5"
+            containers:
+              - name: maven
+                args: cat
+                command: /bin/sh -c
+                image: maven
+                livenessProbe:
+                  failureThreshold: 0
+                  initialDelaySeconds: 0
+                  periodSeconds: 0
+                  successThreshold: 0
+                  timeoutSeconds: 0
+                alwaysPullImage: false
+                resourceLimitCpu: 1
+                resourceLimitMemory: 2500M
+                resourceRequestCpu: 500m
+                resourceRequestMemory: 750M
+                privileged: false
+                ttyEnabled: true
+          - name: python
+            label: python
+            podRetention: never
+            nodeUsageMode: NORMAL
+            instanceCapStr: "5"
+            containers:
+              - name: python
+                args: cat
+                command: /bin/sh -c
+                image: python
+                livenessProbe:
+                  failureThreshold: 0
+                  initialDelaySeconds: 0
+                  periodSeconds: 0
+                  successThreshold: 0
+                  timeoutSeconds: 0
+                alwaysPullImage: false
+                resourceLimitCpu: 1
+                resourceLimitMemory: 2500M
+                resourceRequestCpu: 500m
+                resourceRequestMemory: 750M
+                privileged: false
+                ttyEnabled: true
+          - name: java
+            label: java
+            podRetention: never
+            nodeUsageMode: NORMAL
+            instanceCapStr: "5"
+            containers:
+              - name: java
+                args: cat
+                command: /bin/sh -c
+                image: openjdk
+                livenessProbe:
+                  failureThreshold: 0
+                  initialDelaySeconds: 0
+                  periodSeconds: 0
+                  successThreshold: 0
+                  timeoutSeconds: 0
+                alwaysPullImage: false
+                resourceLimitCpu: 1
+                resourceLimitMemory: 2500M
+                resourceRequestCpu: 500m
+                resourceRequestMemory: 750M
+                privileged: false
+                ttyEnabled: true
