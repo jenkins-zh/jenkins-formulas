@@ -82,10 +82,6 @@ plugins:
     artifactId: "jsch"
     source:
       version: 0.1.55.2
-  - groupId: "org.jenkins-ci.main"
-      artifactId: "maven-plugin"
-      source:
-        version: 3.5
   - groupId: "org.jenkins-ci.plugins.workflow"
     artifactId: "workflow-basic-steps"
     source:
