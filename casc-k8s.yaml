@@ -8,7 +8,7 @@ jenkins:
   disableRememberMe: false
   labelString: master
   mode: NORMAL
-  numExecutors: 0
+  numExecutors: 2
   primaryView:
     all:
       name: "all"
