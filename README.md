@@ -36,6 +36,20 @@ Below are some out-of-the-box solutions which I call them formulas
 
 Want to contribute a formula? Please learn how to create it from [here](formulas/README.md).
 
+## Kubernetes
+We suggest to use Helm Charts in Kubernetes, below are the example command of install Jenkins in a single-node cluster:
+
+```shell script
+helm repo add stable https://kubernetes-charts.storage.googleapis.com
+helm install stable/jenkins --generate-name \
+    --set master.image=jenkinszh/jenkins-k8s \
+    --set master.tag=2.204.5 \
+    --set persistence.enabled=false \
+    --set master.serviceType=NodePort
+```
+
+You can get more details about [how to configure Jenkins chart](https://github.com/helm/charts/tree/master/stable/jenkins#configuration).
+
 ## References
 
 [Jenkins Official Docker Hub](https://hub.docker.com/r/jenkins/jenkins/tags)

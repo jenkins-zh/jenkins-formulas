@@ -46,8 +46,8 @@
 helm repo add apphub https://apphub.aliyuncs.com
 helm install apphub/jenkins --generate-name \
     --set image.repository=jenkinszh/jenkins-k8s \
-    --set jenkinsHome=/var/jenkins_home \
     --set image.tag=2.204.5 \
+    --set jenkinsHome=/var/jenkins_home \
     --set service.type=NodePort \
     --set persistence.enabled=false
 ```
