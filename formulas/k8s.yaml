@@ -120,7 +120,27 @@ plugins:
   - groupId: "org.jenkins-ci.plugins"
     artifactId: "scm-api"
     source:
-      version: 2.4.1
+      version: 2.6.3
+  # Matrix Project Plugin
+  - groupId: "org.jenkins-ci.plugins"
+    artifactId: "matrix-project"
+    source:
+      version: 1.14
+  # SSH Credentials Plugin
+  - groupId: "org.jenkins-ci.plugins"
+    artifactId: "ssh-credentials"
+    source:
+      version: 1.18.1
+  # Jenkins Git client plugin
+  - groupId: "org.jenkins-ci.plugins"
+    artifactId: "git-client"
+    source:
+      version: 3.2.1
+  # Jenkins Apache HttpComponents Client 4.x API Plugin
+  - groupId: "org.jenkins-ci.plugins"
+    artifactId: "apache-httpcomponents-client-4-api"
+    source:
+      version: 4.5.10-2.0
 casc:
   - id: "jcasc"
     source:
