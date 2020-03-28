@@ -54,8 +54,8 @@ jenkins:
                 alwaysPullImage: false
                 resourceLimitCpu: 1
                 resourceLimitMemory: 2500M
-                resourceRequestCpu: 500m
-                resourceRequestMemory: 750M
+                resourceRequestCpu: 50m
+                resourceRequestMemory: 250M
                 privileged: false
                 ttyEnabled: true
           - name: maven
@@ -77,8 +77,8 @@ jenkins:
                 alwaysPullImage: false
                 resourceLimitCpu: 1
                 resourceLimitMemory: 2500M
-                resourceRequestCpu: 500m
-                resourceRequestMemory: 750M
+                resourceRequestCpu: 50m
+                resourceRequestMemory: 250M
                 privileged: false
                 ttyEnabled: true
           - name: python
@@ -100,8 +100,8 @@ jenkins:
                 alwaysPullImage: false
                 resourceLimitCpu: 1
                 resourceLimitMemory: 2500M
-                resourceRequestCpu: 500m
-                resourceRequestMemory: 750M
+                resourceRequestCpu: 50m
+                resourceRequestMemory: 250M
                 privileged: false
                 ttyEnabled: true
           - name: java
@@ -123,7 +123,7 @@ jenkins:
                 alwaysPullImage: false
                 resourceLimitCpu: 1
                 resourceLimitMemory: 2500M
-                resourceRequestCpu: 500m
-                resourceRequestMemory: 750M
+                resourceRequestCpu: 50m
+                resourceRequestMemory: 250M
                 privileged: false
                 ttyEnabled: true
