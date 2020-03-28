@@ -1,0 +1,26 @@
+name: SyncImage
+
+on:
+  schedule:
+  - cron: "0 15 * * *"
+  push:
+    branches: 
+    - master
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Get Config
+      run: |
+        git clone https://linuxsuren:${{ secrets.GITHUB_LINUXSUREN_SECRETS }}@github.com/LinuxSuRen/docker-image-sync
+    - name: Download tool
+      run: |
+        wget https://github.com/AliyunContainerService/image-syncer/releases/download/v1.0.4/image-syncer-v1.0.4-linux-amd64.tar.gz
+        tar xzvf image-syncer-v1.0.4-linux-amd64.tar.gz
+    - name: Sync Image
+      run: |
+        ./image-syncer --proc=16 --config=docker-image-sync/config-jenkins-zh.json --namespace=jenkinszh --registry=registry.cn-beijing.aliyuncs.com --retries=3
