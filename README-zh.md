@@ -43,13 +43,12 @@
 在 Kubernetes 上，我们推荐使用 Helm Charts，下面是在单节点集群上安装 Jenkins 的命令参考：
 
 ```shell script
-helm repo add apphub https://apphub.aliyuncs.com
-helm install apphub/jenkins --generate-name \
-    --set image.repository=jenkinszh/jenkins-k8s \
-    --set image.tag=2.226 \
-    --set jenkinsHome=/var/jenkins_home \
-    --set service.type=NodePort \
-    --set persistence.enabled=false
+helm repo add stable https://kubernetes-charts.storage.googleapis.com
+helm install jenkins stable/jenkins \
+    --set master.image=jenkinszh/jenkins-k8s \
+    --set master.tag=2.204.5 \
+    --set persistence.enabled=false \
+    --set master.serviceType=NodePort
 ```
 
 更多配置参数，请[参考这里](https://github.com/cloudnativeapp/charts/blob/master/curated/jenkins/README.md#configuration)。

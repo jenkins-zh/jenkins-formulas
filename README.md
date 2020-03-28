@@ -41,7 +41,7 @@ We suggest to use Helm Charts in Kubernetes, below are the example command of in
 
 ```shell script
 helm repo add stable https://kubernetes-charts.storage.googleapis.com
-helm install stable/jenkins --generate-name \
+helm install jenkins stable/jenkins \
     --set master.image=jenkinszh/jenkins-k8s \
     --set master.tag=2.204.5 \
     --set persistence.enabled=false \

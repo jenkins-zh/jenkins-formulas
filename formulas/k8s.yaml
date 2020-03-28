@@ -31,7 +31,6 @@ plugins:
     artifactId: "kubernetes-client-api"
     source:
       version: 4.8.0-1
-  - groupId: "org.jenkins-ci.plugins"
   # indirect dependencies
   - groupId: "org.jenkinsci.plugins"
     artifactId: "kubernetes-credentials"
