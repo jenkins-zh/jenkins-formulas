@@ -154,3 +154,26 @@ jenkins:
               - hostPathVolume:
                   hostPath: "/var/run/docker.sock"
                   mountPath: "/var/run/docker.sock"
+          - name: helm
+            label: helm
+            podRetention: never
+            nodeUsageMode: NORMAL
+            instanceCapStr: "5"
+            containers:
+              - name: helm
+                args: cat
+                command: /bin/sh -c
+                image: alpine/helm
+                livenessProbe:
+                  failureThreshold: 0
+                  initialDelaySeconds: 0
+                  periodSeconds: 0
+                  successThreshold: 0
+                  timeoutSeconds: 0
+                alwaysPullImage: false
+                resourceLimitCpu: 1
+                resourceLimitMemory: 2500M
+                resourceRequestCpu: 50m
+                resourceRequestMemory: 250M
+                privileged: false
+                ttyEnabled: true
