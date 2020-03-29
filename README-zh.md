@@ -39,6 +39,21 @@
 
 想要贡献一份配方？请在[这里](formulas/README-zh.md)学习如何提交配方。
 
+## Kubernetes
+在 Kubernetes 上，我们推荐使用 Helm Charts，下面是在单节点集群上安装 Jenkins 的命令参考：
+
+```shell script
+helm repo add stable https://kubernetes-charts.storage.googleapis.com
+helm install jenkins stable/jenkins \
+    --set master.image=jenkinszh/jenkins-k8s \
+    --set master.tag=2.204.5 \
+    --set master.imagePullPolicy=IfNotPresent \
+    --set persistence.enabled=false \
+    --set master.serviceType=NodePort
+```
+
+更多配置参数，请[参考这里](https://github.com/cloudnativeapp/charts/blob/master/curated/jenkins/README.md#configuration)。
+
 ## 贡献
 所有的 `LTS` 版本都会分别创建对应的分支，`Weekly` 版本则是在 master 分支上来进行维护。
 

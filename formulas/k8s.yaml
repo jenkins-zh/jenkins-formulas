@@ -22,19 +22,25 @@ plugins:
     artifactId: "configuration-as-code"
     source:
       version: "1.35"
-  - groupId: "org.jenkins-ci.plugins.workflow"
-    artifactId: "workflow-aggregator"
-    source:
-      version: "2.6"
+  # kubernetes suite
   - groupId: "org.csanchez.jenkins.plugins"
     artifactId: "kubernetes"
     source:
       version: "1.24.1"
+  - groupId: "org.jenkins-ci.plugins"
+    artifactId: "kubernetes-client-api"
+    source:
+      version: 4.8.0-1
   # indirect dependencies
   - groupId: "org.jenkinsci.plugins"
     artifactId: "kubernetes-credentials"
     source:
       version: 0.6.2
+  # pipeline suite
+  - groupId: "org.jenkins-ci.plugins.workflow"
+    artifactId: "workflow-aggregator"
+    source:
+      version: "2.6"
   - groupId: "org.jenkins-ci.plugins"
     artifactId: "script-security"
     source:
@@ -43,10 +49,6 @@ plugins:
     artifactId: "jackson2-api"
     source:
       version: 2.10.3
-  - groupId: "org.jenkins-ci.plugins"
-    artifactId: "kubernetes-client-api"
-    source:
-      version: 4.8.0-1
   - groupId: "org.jenkins-ci.plugins"
     artifactId: "credentials"
     source:
@@ -71,8 +73,14 @@ plugins:
     artifactId: "workflow-api"
     source:
       version: 2.40
+  # Pipeline: Model API
   - groupId: "org.jenkinsci.plugins"
     artifactId: "pipeline-model-api"
+    source:
+      version: 1.6.0
+  # Pipeline: Declarative
+  - groupId: "org.jenkinsci.plugins"
+    artifactId: "pipeline-model-definition"
     source:
       version: 1.6.0
   - groupId: "org.jenkins-ci.plugins.workflow"
@@ -93,21 +101,26 @@ plugins:
     artifactId: "workflow-job"
     source:
       version: 2.33
-  #  Jenkins Apache HttpComponents Client 4.x API Plugin
-  - groupId: "org.jenkins-ci.plugins"
-    artifactId: "apache-httpcomponents-client-4-api"
+  # Pipeline: Basic Steps
+  - groupId: "org.jenkins-ci.plugins.workflow"
+    artifactId: "workflow-basic-steps"
     source:
-      version: 4.5.10-2.0
-  # Display URL API
-  - groupId: "org.jenkins-ci.plugins"
-    artifactId: "display-url-api"
+      version: 2.18
+  # Pipeline: Nodes and Processes
+  - groupId: "org.jenkins-ci.plugins.workflow"
+    artifactId: "workflow-durable-task-step"
     source:
-      version: 2.3.2
-  #  Jenkins Git plugin
-  - groupId: "org.jenkins-ci.plugins"
-    artifactId: "git"
+      version: 2.35
+  # Pipeline: SCM Step
+  - groupId: "org.jenkins-ci.plugins.workflow"
+    artifactId: "workflow-scm-step"
     source:
-      version: 3.12.1
+      version: 2.10
+  # SCM API Plugin
+  - groupId: "org.jenkins-ci.plugins"
+    artifactId: "scm-api"
+    source:
+      version: 2.6.3
   # Matrix Project Plugin
   - groupId: "org.jenkins-ci.plugins"
     artifactId: "matrix-project"
@@ -118,26 +131,16 @@ plugins:
     artifactId: "ssh-credentials"
     source:
       version: 1.18.1
-  # SCM API Plugin
-  - groupId: "org.jenkins-ci.plugins"
-    artifactId: "scm-api"
-    source:
-      version: 2.6.3
-  # Pipeline: SCM Step
-  - groupId: "org.jenkins-ci.plugins.workflow"
-    artifactId: "workflow-scm-step"
-    source:
-      version: 2.10
-  #  Jenkins Git client plugin
+  # Jenkins Git client plugin
   - groupId: "org.jenkins-ci.plugins"
     artifactId: "git-client"
     source:
       version: 3.2.1
-  # Branch API Plugin
+  # Jenkins Apache HttpComponents Client 4.x API Plugin
   - groupId: "org.jenkins-ci.plugins"
-    artifactId: "branch-api"
+    artifactId: "apache-httpcomponents-client-4-api"
     source:
-      version: 2.5.4
+      version: 4.5.10-2.0
 casc:
   - id: "jcasc"
     source:
