@@ -22,6 +22,9 @@ type BuildOptions struct {
 	DockerUsername string
 	DockerToken string
 
+	CleanWAR bool
+	CleanTempDir bool
+	CleanImage bool
 	DryRun bool
 
 	ConfigManager *common.CustomConfigManager
@@ -46,6 +49,12 @@ func NewBuildCommand(commonOpts *common.Options) (cmd *cobra.Command) {
 		`The username of docker hub`)
 	cmd.Flags().StringVarP(&buildOptions.DockerToken, "docker-token", "", "",
 		`The token of docker hub`)
+	cmd.Flags().BoolVarP(&buildOptions.CleanWAR, "clean-war", "", true,
+		`Clean jenkins.war after uploaded it`)
+	cmd.Flags().BoolVarP(&buildOptions.CleanTempDir, "clean-temp", "", true,
+		`Clean the temp dir after uploaded it`)
+	cmd.Flags().BoolVarP(&buildOptions.CleanImage, "clean-image", "", true,
+		`Clean docker image after uploaded it`)
 	cmd.Flags().BoolVarP(&buildOptions.DryRun, "dry-run", "", false,
 		`Do not really do the build action`)
 	return
@@ -117,6 +126,20 @@ func (o *BuildOptions) Run(cmd *cobra.Command, args []string) (err error) {
 			err = o.upload(path, versionFormula.Version, versionFormula.Formula.Name)
 			if err != nil {
 				fmt.Println("upload error", err)
+			}
+
+			if o.CleanWAR {
+				if cleanErr := os.RemoveAll(path); cleanErr != nil {
+					fmt.Println("clean war file error", err)
+				}
+			}
+
+			if o.CleanTempDir {
+				tempDir := fmt.Sprintf("tmp-%s-%s", versionFormula.Formula.Name, versionFormula.Version)
+
+				if cleanErr := os.RemoveAll(tempDir); cleanErr != nil {
+					fmt.Println("clean temp file error", err)
+				}
 			}
 
 			err = o.dockerPush(versionFormula.Version, versionFormula.Formula.Name, cmd.OutOrStdout())

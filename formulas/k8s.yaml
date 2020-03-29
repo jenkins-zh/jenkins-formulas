@@ -141,6 +141,11 @@ plugins:
     artifactId: "apache-httpcomponents-client-4-api"
     source:
       version: 4.5.10-2.0
+  # Pipeline restFul API Plugin
+  - groupId: "io.jenkins.plugins"
+    artifactId: "pipeline-restful-api"
+    source:
+      version: 0.6
 casc:
   - id: "jcasc"
     source:
