@@ -1,12 +1,12 @@
 bundle:
   groupId: "io.github.linuxsuren"
   artifactId: "jenkins-zh"
-  description: "Jenkins with multi-Pipeline suite"
+  description: "Jenkins with BlueOcean suite"
   vendor: "Chinese Jenkins Community"
 buildSettings:
   docker:
     base: "jenkins/jenkins:{{.version}}"
-    tag: "jenkinszh/jenkins-multi-pipeline-zh:{{.version}}"
+    tag: "jenkinszh/blueocean-zh:{{.version}}"
     build: true
 war:
   groupId: "org.jenkins-ci.main"
