@@ -15,6 +15,18 @@ war:
     version: {{.version}}
 plugins:
   - groupId: "org.jenkins-ci.plugins"
+    artifactId: "git"
+    source:
+      version: 4.2.2
+  - groupId: "org.jenkins-ci.plugins"
+    artifactId: "matrix-project"
+    source:
+      version: "1.14"
+  - groupId: "org.jenkins-ci.plugins"
+    artifactId: "apache-httpcomponents-client-4-api"
+    source:
+      version: "4.5.10-2.0"
+  - groupId: "org.jenkins-ci.plugins"
     artifactId: "localization-zh-cn"
     source:
       version: 1.0.13
@@ -105,7 +117,7 @@ plugins:
   - groupId: "org.jenkins-ci.plugins"
     artifactId: "scm-api"
     source:
-      version: 2.4.1
+      version: 2.6.3
 casc:
   - id: "jcasc"
     source:

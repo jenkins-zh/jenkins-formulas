@@ -3,3 +3,12 @@ jenkins:
     sites:
     - id: "default"
       url: "https://updates.jenkins-zh.cn/update-center.json"
+tool:
+  maven:
+    installations:
+      - name: "M3"
+        properties:
+          - installSource:
+              installers:
+                - maven:
+                    id: "3.3.9"
