@@ -1,12 +1,12 @@
 bundle:
   groupId: "io.github.linuxsuren"
   artifactId: "jenkins-zh"
-  description: "Jenkins with Kubernetes"
+  description: "Jenkins with BlueOcean suite"
   vendor: "Chinese Jenkins Community"
 buildSettings:
   docker:
     base: "jenkins/jenkins:{{.version}}"
-    tag: "jenkinszh/jenkins-k8s:{{.version}}"
+    tag: "jenkinszh/blueocean-zh:{{.version}}"
     build: true
 war:
   groupId: "org.jenkins-ci.main"
@@ -17,26 +17,23 @@ plugins:
   - groupId: "org.jenkins-ci.plugins"
     artifactId: "localization-zh-cn"
     source:
-      version: "1.0.13"
+      version: 1.0.13
   - groupId: "io.jenkins"
     artifactId: "configuration-as-code"
     source:
       version: "1.35"
-  # kubernetes suite
-  - groupId: "org.csanchez.jenkins.plugins"
-    artifactId: "kubernetes"
-    source:
-      version: "1.24.1"
   - groupId: "org.jenkins-ci.plugins"
-    artifactId: "kubernetes-client-api"
+    artifactId: "github-branch-source"
     source:
-      version: 4.8.0-1
-  # indirect dependencies
-  - groupId: "org.jenkinsci.plugins"
-    artifactId: "kubernetes-credentials"
+      version: "2.6.0"
+  - groupId: "io.jenkins.plugins"
+    artifactId: "gitlab-branch-source"
     source:
-      version: 0.6.2
-  # pipeline suite
+      version: "1.4.4"
+  - groupId: "org.jenkins-ci.plugins"
+    artifactId: "cloudbees-bitbucket-branch-source"
+    source:
+      version: "2.7.0"
   - groupId: "org.jenkins-ci.plugins.workflow"
     artifactId: "workflow-aggregator"
     source:
@@ -73,14 +70,8 @@ plugins:
     artifactId: "workflow-api"
     source:
       version: 2.40
-  # Pipeline: Model API
   - groupId: "org.jenkinsci.plugins"
     artifactId: "pipeline-model-api"
-    source:
-      version: 1.6.0
-  # Pipeline: Declarative
-  - groupId: "org.jenkinsci.plugins"
-    artifactId: "pipeline-model-definition"
     source:
       version: 1.6.0
   - groupId: "org.jenkins-ci.plugins.workflow"
@@ -101,21 +92,11 @@ plugins:
     artifactId: "workflow-job"
     source:
       version: 2.33
-  # Pipeline: Basic Steps
-  - groupId: "org.jenkins-ci.plugins.workflow"
-    artifactId: "workflow-basic-steps"
+  # Display URL API
+  - groupId: "org.jenkins-ci.plugins"
+    artifactId: "display-url-api"
     source:
-      version: 2.18
-  # Pipeline: Nodes and Processes
-  - groupId: "org.jenkins-ci.plugins.workflow"
-    artifactId: "workflow-durable-task-step"
-    source:
-      version: 2.35
-  # Pipeline: SCM Step
-  - groupId: "org.jenkins-ci.plugins.workflow"
-    artifactId: "workflow-scm-step"
-    source:
-      version: 2.10
+      version: 2.3.2
   # SCM API Plugin
   - groupId: "org.jenkins-ci.plugins"
     artifactId: "scm-api"
@@ -131,6 +112,21 @@ plugins:
     artifactId: "ssh-credentials"
     source:
       version: 1.18.1
+  # Token Macro Plugin
+  - groupId: "org.jenkins-ci.plugins"
+    artifactId: "token-macro"
+    source:
+      version: 2.12
+  # Jenkins Git plugin
+  - groupId: "org.jenkins-ci.plugins"
+    artifactId: "git"
+    source:
+      version: 3.12.1
+  # Pipeline: SCM Step
+  - groupId: "org.jenkins-ci.plugins.workflow"
+    artifactId: "workflow-scm-step"
+    source:
+      version: 2.10
   # Jenkins Git client plugin
   - groupId: "org.jenkins-ci.plugins"
     artifactId: "git-client"
@@ -146,10 +142,55 @@ plugins:
     artifactId: "pipeline-restful-api"
     source:
       version: 0.6
+  # Blue Ocean
+  - groupId: "io.jenkins.blueocean"
+    artifactId: "blueocean"
+    source:
+      version: 1.19.0
+  # JUnit Plugin
+  - groupId: "org.jenkins-ci.plugins"
+    artifactId: "junit"
+    source:
+      version: 1.23
+  # Pipeline: Basic Steps
+  - groupId: "org.jenkins-ci.plugins.workflow"
+    artifactId: "workflow-basic-steps"
+    source:
+      version: 2.18
+  # Plain Credentials
+  - groupId: "org.jenkins-ci.plugins"
+    artifactId: "plain-credentials"
+    source:
+      version: 1.4
+  # Pipeline: Stage Tags Metadata
+  - groupId: "org.jenkinsci.plugins"
+    artifactId: "pipeline-stage-tags-metadata"
+    source:
+      version: 1.6.0
+  # Pipeline: Nodes and Processes
+  - groupId: "org.jenkins-ci.plugins.workflow"
+    artifactId: "workflow-durable-task-step"
+    source:
+      version: 2.35
+  # Pipeline: Declarative
+  - groupId: "org.jenkinsci.plugins"
+    artifactId: "pipeline-model-definition"
+    source:
+      version: 1.6.0
+  # Pipeline Graph Analysis Plugin
+  - groupId: "org.jenkins-ci.plugins"
+    artifactId: "pipeline-graph-analysis"
+    source:
+      version: 1.10
+  # Branch API Plugin
+  - groupId: "org.jenkins-ci.plugins"
+    artifactId: "branch-api"
+    source:
+      version: 2.5.4
 casc:
   - id: "jcasc"
     source:
-      dir: casc-k8s.yaml
+      dir: casc.yaml
 groovyHooks:
   - type: "init"
     id: "initScripts"

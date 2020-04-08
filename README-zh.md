@@ -35,9 +35,25 @@
 | 配置即代码 | `jenkins-zh.war` | `jenkinszh/jenkins-zh` [![Docker Pulls](https://img.shields.io/docker/pulls/jenkinszh/jenkins-zh.svg)](https://hub.docker.com/r/jenkinszh/jenkins-zh/tags) |
 | 配置即代码 + 流水线| `jenkins-pipeline.war` | `jenkinszh/jenkins-pipeline` [![Docker Pulls](https://img.shields.io/docker/pulls/jenkinszh/jenkins-pipeline.svg)](https://hub.docker.com/r/jenkinszh/jenkins-pipeline/tags) |
 | 配置即代码 + 流水线 + K8s | `jenkins-k8s.war` | `jenkinszh/jenkins-k8s:2.204.5` [![Docker Pulls](https://img.shields.io/docker/pulls/jenkinszh/jenkins-k8s.svg)](https://hub.docker.com/r/jenkinszh/jenkins-k8s/tags) |
+| BlueOcean + 多分支流水线 | `blueocean-zh.war` | `jenkinszh/blueocean-zh:2.204.5` [![Docker Pulls](https://img.shields.io/docker/pulls/jenkinszh/blueocean-zh.svg)](https://hub.docker.com/r/jenkinszh/blueocean-zh/tags) |
 | 多分支流水线（GitHub、GitLab、Bitbucket）| `jenkins-multi-pipeline-zh.war` | `jenkinszh/jenkins-multi-pipeline-zh:2.204.5` [![Docker Pulls](https://img.shields.io/docker/pulls/jenkinszh/jenkins-multi-pipeline-zh.svg)](https://hub.docker.com/r/jenkinszh/jenkins-multi-pipeline-zh/tags) |
 
 想要贡献一份配方？请在[这里](formulas/README-zh.md)学习如何提交配方。
+
+## Kubernetes
+在 Kubernetes 上，我们推荐使用 Helm Charts，下面是在单节点集群上安装 Jenkins 的命令参考：
+
+```shell script
+helm repo add stable https://kubernetes-charts.storage.googleapis.com
+helm install jenkins stable/jenkins \
+    --set master.image=jenkinszh/jenkins-k8s \
+    --set master.tag=2.204.5 \
+    --set master.imagePullPolicy=IfNotPresent \
+    --set persistence.enabled=false \
+    --set master.serviceType=NodePort
+```
+
+更多配置参数，请[参考这里](https://github.com/cloudnativeapp/charts/blob/master/curated/jenkins/README.md#configuration)。
 
 ## 贡献
 所有的 `LTS` 版本都会分别创建对应的分支，`Weekly` 版本则是在 master 分支上来进行维护。
