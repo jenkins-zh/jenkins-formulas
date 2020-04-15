@@ -67,32 +67,9 @@ func (o *BuildOptions) Run(cmd *cobra.Command, args []string) (err error) {
 	}
 
 	buildMap := make(map[string]VersionFormula, 0)
-	for _, ver := range o.ConfigManager.GetAllVersions() {
-		var files []BintrayFile
-		if files, err = o.getVersionFiles(ver); err != nil {
-			cmd.Println("get version files error", ver, err)
-			files = make([]BintrayFile, 0)
-		}
-
-		for _, formula := range o.ConfigManager.GetFormulas() {
-			found := false
-			for _, file := range files {
-				if file.Name == fmt.Sprintf("jenkins-%s.war", formula) {
-					found = true
-					break
-				}
-			}
-
-			if !found {
-				buildMap[fmt.Sprintf("%s-%s", formula.Name, ver)] = VersionFormula{
-					Version: ver,
-					Formula: formula,
-				}
-			}
-		}
-	}
 
 	cmd.Println("check the new formulas here")
+	formulas := make([]common.CustomFormula, 0)
 	for _, formula := range o.ConfigManager.GetFormulas() {
 		formulaFile := fmt.Sprintf("formulas/%s.yaml", formula.Name)
 
@@ -101,18 +78,23 @@ func (o *BuildOptions) Run(cmd *cobra.Command, args []string) (err error) {
 			return
 		}
 
-		if formula.MD5 != fmt.Sprintf("%x", md5.Sum(data)) {
+		latestMD5 := fmt.Sprintf("%x", md5.Sum(data))
+		if formula.MD5 != latestMD5 {
 			for _, ver := range o.ConfigManager.GetAllVersions() {
 				buildMap[fmt.Sprintf("%s-%s", formula.Name, ver)] = VersionFormula{
 					Version: ver,
 					Formula: formula,
 				}
 			}
+			// update the md5 of this formula, so we don't need package it again
+			formula.MD5 = latestMD5
 		}
+
+		formulas = append(formulas, formula)
 	}
 
 	cmd.Println("start to build all things")
-	cmd.Println("found new versionFormulas", len(buildMap))
+	cmd.Printf("found new versionFormulas %#v, count %d\n", buildMap, len(buildMap))
 	if err = o.dockerLogin(cmd.OutOrStdout()); err != nil {
 		return
 	}
@@ -146,7 +128,22 @@ func (o *BuildOptions) Run(cmd *cobra.Command, args []string) (err error) {
 			if err != nil {
 				fmt.Println("docker push error", err)
 			}
+
+			if o.CleanImage {
+				// clean docker image in order not to take too much of storage
+				err = o.dockerRemoveImage(versionFormula.Version, versionFormula.Formula.Name, cmd.OutOrStdout())
+				if err != nil {
+					fmt.Println("docker remove image error", err)
+				}
+			}
 		}
+	}
+
+	// should save the config file for each formula
+	// just save it one time because it's easy to achieve
+	o.ConfigManager.SetFormulas(formulas)
+	if err = o.ConfigManager.Save(); err != nil {
+		cmd.PrintErrf("cannot save config file %#v\n", err)
 	}
 	return
 }
@@ -170,6 +167,19 @@ func (o *BuildOptions) dockerLogin(writer io.Writer) (err error) {
 
 func (o *BuildOptions) dockerPush(version, formula string, writer io.Writer) (err error) {
 	args := []string{"push", fmt.Sprintf("jenkinszh/jenkins-%s:%s", formula, version)}
+	if o.DryRun {
+		fmt.Println(args)
+	} else {
+		cmd := exec.Command("docker", args...)
+		cmd.Stderr = writer
+		cmd.Stdout = writer
+		err = cmd.Run()
+	}
+	return
+}
+
+func (o *BuildOptions) dockerRemoveImage(version, formula string, writer io.Writer) (err error) {
+	args := []string{"rmi", fmt.Sprintf("jenkinszh/jenkins-%s:%s", formula, version)}
 	if o.DryRun {
 		fmt.Println(args)
 	} else {
