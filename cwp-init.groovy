@@ -30,6 +30,22 @@ Thread.start {
           out.write(buf, 0, count);
         }
 
+        // backup current file, make sure it can be executed only one time
+        File initFile = new File(instance.getRootDir(), "/war/WEB-INF/init.groovy.d/cwp-init.groovy");
+        if(initFile.isFile()) {
+            initFile.renameTo(new File(instance.getRootDir(), "/war/WEB-INF/init.groovy.d/cwp-init.groovy.bak"));
+        }
+
+        // remove bundled plugins
+        File pluginsDir = new File(instance.getRootDir(), "/war/WEB-INF/plugins");
+        if (pluginsDir.isDirectory()) {
+            for(String plugin : pluginsDir.list()) {
+                boolean result = new File(pluginsDir, plugin).delete();
+                println "delete plugin " + plugin + " " + result
+            }
+        } else {
+            println "plugins file is not a is directory"
+        }
         println "Jenkins init ready..."
       } else {
         System.err.println("cannot found localization-zh-cn, would not copy cert file");
