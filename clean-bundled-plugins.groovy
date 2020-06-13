@@ -12,6 +12,24 @@ Thread.start {
     Thread.sleep(1500L);
     println "Jenkins not ready when handle init config..."
     if (initLevel >= InitMilestone.PLUGINS_STARTED) {
+      Plugin zhPlugin = instance.getPlugin("localization-zh-cn");
+      if (zhPlugin != null) {
+        InputStream input = zhPlugin.getWrapper().classLoader.getResourceAsStream("mirror-adapter.crt");
+        if (input == null) {
+          System.err.println("cannot found mirror-adapter.crt from localization-zh-cn, would not copy cert file");
+          break;
+        }
+
+        File certPath = new File(instance.getRootDir(), "/war/WEB-INF/update-center-rootCAs/mirror-adapter.crt");
+        FileOutputStream out = new FileOutputStream(certPath);
+
+        byte[] buf = new byte[1024];
+        int count = -1;
+
+        while((count = input.read(buf)) > 0) {
+          out.write(buf, 0, count);
+        }
+
         // backup current file, make sure it can be executed only one time
         File initFile = new File(instance.getRootDir(), "/war/WEB-INF/init.groovy.d/cwp-init.groovy");
         if(initFile.isFile()) {
@@ -29,7 +47,10 @@ Thread.start {
             println "plugins file is not a is directory"
         }
         println "Jenkins init ready..."
-        break
+      } else {
+        System.err.println("cannot found localization-zh-cn, would not copy cert file");
+      }
+      break
     }
   }
 
