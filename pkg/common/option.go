@@ -57,6 +57,10 @@ func (c *CustomConfigManager) GetFormulas() []CustomFormula {
 	return c.CustomConfig.Formulas
 }
 
+func (c *CustomConfigManager) SetFormulas(formulas []CustomFormula) {
+	c.CustomConfig.Formulas = formulas
+}
+
 func (c *CustomConfigManager) Save() (err error) {
 	if c.ConfigPath == "" {
 		err = fmt.Errorf("no config file path provide")
