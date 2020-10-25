@@ -20,12 +20,20 @@ type BuildOptions struct {
 	Token    string
 
 	DockerUsername string
-	DockerToken string
+	DockerToken    string
 
-	CleanWAR bool
+	UploadToBintray bool
+	UploadToNexus   bool
+	NexusUsername   string
+	NexusPassword   string
+	NexusURL        string
+	NexusRepo       string
+	NexusFilePath   string
+
+	CleanWAR     bool
 	CleanTempDir bool
-	CleanImage bool
-	DryRun bool
+	CleanImage   bool
+	DryRun       bool
 
 	ConfigManager *common.CustomConfigManager
 }
@@ -55,6 +63,20 @@ func NewBuildCommand(commonOpts *common.Options) (cmd *cobra.Command) {
 		`Clean the temp dir after uploaded it`)
 	cmd.Flags().BoolVarP(&buildOptions.CleanImage, "clean-image", "", true,
 		`Clean docker image after uploaded it`)
+	cmd.Flags().BoolVarP(&buildOptions.UploadToBintray, "upload-to-bintray", "", true,
+		`Upload files to Bintray, see also https://bintray.com/. Please attention, the default value might be change in the future`)
+	cmd.Flags().BoolVarP(&buildOptions.UploadToNexus, "upload-to-nexus", "", false,
+		`Upload files to a Nexus server`)
+	cmd.Flags().StringVarP(&buildOptions.NexusURL, "nexus-url", "", "",
+		`The URL of a Nexus server`)
+	cmd.Flags().StringVarP(&buildOptions.Username, "nexus-username", "", "",
+		`The username of a Nexus server`)
+	cmd.Flags().StringVarP(&buildOptions.NexusPassword, "nexus-password", "", "",
+		`The password of a Nexus server`)
+	cmd.Flags().StringVarP(&buildOptions.NexusRepo, "nexus-repo", "", "",
+		`The repo of a Nexus server`)
+	cmd.Flags().StringVarP(&buildOptions.NexusFilePath, "nexus-filepath", "", "",
+		`The filepath of a repo from Nexus`)
 	cmd.Flags().BoolVarP(&buildOptions.DryRun, "dry-run", "", false,
 		`Do not really do the build action`)
 	return
@@ -105,9 +127,18 @@ func (o *BuildOptions) Run(cmd *cobra.Command, args []string) (err error) {
 			cmd.Println("failed in build", versionFormula)
 			return
 		} else {
-			err = o.upload(path, versionFormula.Version, versionFormula.Formula.Name)
-			if err != nil {
-				fmt.Println("upload error", err)
+			if o.UploadToNexus {
+				err = o.uploadToNexus(path, versionFormula.Version, versionFormula.Formula.Name)
+				if err != nil {
+					fmt.Println("upload error", err)
+				}
+			}
+
+			if o.UploadToBintray {
+				err = o.upload(path, versionFormula.Version, versionFormula.Formula.Name)
+				if err != nil {
+					fmt.Println("upload error", err)
+				}
 			}
 
 			if o.CleanWAR {
@@ -299,6 +330,42 @@ func (o *BuildOptions) build(versionFormula VersionFormula, writer io.Writer) (p
 		err = cmd.Run()
 		path = fmt.Sprintf("tmp-%s-%s/output/target/jenkins-zh-%s.war", versionFormula.Formula.Name,
 			versionFormula.Version, versionFormula.Version)
+	}
+	return
+}
+
+// https://stackoverflow.com/questions/41951455/nexus-3-file-upload-to-hosted-maven-repository
+func (o *BuildOptions) uploadToNexus(filepath, version, formula string) (err error) {
+	client := &http.Client{}
+	api := fmt.Sprintf("%s/repository/%s/%s/%s", o.NexusURL, o.NexusRepo, o.NexusFilePath, filepath)
+
+	fmt.Printf("upload file by %s\n", api)
+	if o.DryRun {
+		return
+	}
+
+	var request *http.Request
+	var response *http.Response
+	data, err := os.Open(filepath)
+	if err != nil {
+		return
+	}
+	defer func() {
+		_ = data.Close()
+	}()
+	if request, err = http.NewRequest("POST", api, data); err != nil {
+		return
+	}
+	request.SetBasicAuth(o.NexusUsername, o.NexusPassword)
+	response, err = client.Do(request)
+
+	if response != nil {
+		fmt.Println("StatusCode", response.StatusCode, "response", response.Body)
+
+		var data []byte
+		if data, err = ioutil.ReadAll(response.Body); err == nil {
+			fmt.Println("response", string(data))
+		}
 	}
 	return
 }
