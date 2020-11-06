@@ -12,18 +12,18 @@ type Options struct {
 
 type CustomConfig struct {
 	Formulas []CustomFormula
-	LTS []string
-	Weekly []string
+	LTS      []string
+	Weekly   []string
 }
 
 type CustomFormula struct {
 	Name string
-	MD5 string
+	MD5  string
 }
 
 type CustomConfigManager struct {
 	CustomConfig *CustomConfig
-	ConfigPath string
+	ConfigPath   string
 }
 
 func (c *CustomConfigManager) Read(path string) (err error) {
