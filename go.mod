@@ -1,4 +1,4 @@
-module github.com/jenkins-zh/docker-zh
+module github.com/jenkins-zh/jenkins-formulas
 
 go 1.13
 
