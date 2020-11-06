@@ -1,7 +1,7 @@
 package check
 
 import (
-	"github.com/jenkins-zh/docker-zh/pkg/common"
+	"github.com/jenkins-zh/jenkins-formulas/pkg/common"
 	"github.com/spf13/cobra"
 	"io/ioutil"
 	"net/http"

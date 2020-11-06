@@ -4,7 +4,7 @@ import (
 	"crypto/md5"
 	"encoding/json"
 	"fmt"
-	"github.com/jenkins-zh/docker-zh/pkg/common"
+	"github.com/jenkins-zh/jenkins-formulas/pkg/common"
 	"github.com/spf13/cobra"
 	"io"
 	"io/ioutil"

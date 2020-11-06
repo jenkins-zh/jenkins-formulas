@@ -17,7 +17,7 @@ You can mount the volume by the following command:
 
 `docker run -u root -v /var/jenkins/data:/var/jenkins_home -p 8080:8080 jenkinszh/jenkins-zh:lts`
 
-Find all tags by [click here](https://github.com/jenkins-zh/docker-zh/packages/134536/versions)。
+Find all tags by [click here](https://github.com/jenkins-zh/jenkins-formulas/packages/134536/versions)。
 
 ## war
 [![下载](https://api.bintray.com/packages/jenkins-zh/generic/jenkins/images/download.svg) ](https://bintray.com/jenkins-zh/generic/jenkins/_latestVersion)

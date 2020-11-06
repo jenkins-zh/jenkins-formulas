@@ -35,4 +35,4 @@ jobs:
           git config --local user.name "rick"
           git add config.yaml
           (git status | grep config.yaml) && git commit -m 'Auto commit by rick bot'
-          git push https://linuxsuren:${{ secrets.GITHUB_SECRETS }}@github.com/jenkins-zh/docker-zh.git
+          git push https://linuxsuren:${{ secrets.GITHUB_SECRETS }}@github.com/jenkins-zh/jenkins-formulas.git

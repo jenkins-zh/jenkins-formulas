@@ -16,7 +16,7 @@
 
 `docker run -u root -v /var/jenkins/data:/var/jenkins_home -p 8080:8080 jenkinszh/jenkins-zh:lts`
 
-[点击这里](https://github.com/jenkins-zh/docker-zh/packages/134536/versions)查看所有 `docker tag` 的版本。
+[点击这里](https://github.com/jenkins-zh/jenkins-formulas/packages/134536/versions)查看所有 `docker tag` 的版本。
 
 ## war
 [![下载](https://api.bintray.com/packages/jenkins-zh/generic/jenkins/images/download.svg) ](https://bintray.com/jenkins-zh/generic/jenkins/_latestVersion)

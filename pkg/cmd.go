@@ -1,9 +1,9 @@
 package pkg
 
 import (
-	"github.com/jenkins-zh/docker-zh/pkg/build"
-	"github.com/jenkins-zh/docker-zh/pkg/check"
-	"github.com/jenkins-zh/docker-zh/pkg/common"
+	"github.com/jenkins-zh/jenkins-formulas/pkg/build"
+	"github.com/jenkins-zh/jenkins-formulas/pkg/check"
+	"github.com/jenkins-zh/jenkins-formulas/pkg/common"
 	"github.com/spf13/cobra"
 	"os"
 )

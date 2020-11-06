@@ -1,7 +1,7 @@
 package common_test
 
 import (
-	"github.com/jenkins-zh/docker-zh/pkg/common"
+	"github.com/jenkins-zh/jenkins-formulas/pkg/common"
 	"io/ioutil"
 	"os"
 	"testing"
