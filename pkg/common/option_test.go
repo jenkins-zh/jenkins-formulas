@@ -8,7 +8,7 @@ import (
 )
 
 const (
-	fakeLTS = "fake-lts"
+	fakeLTS    = "fake-lts"
 	fakeWeekly = "fake-weekly"
 )
 
@@ -32,7 +32,7 @@ func TestReadCustomConfig(t *testing.T) {
 	var ok bool
 	// lts testing
 	if ok, err = mgr.HasTLS(fakeLTS); err != nil || ok {
- 		t.Fatalf("%s should not exists, %v", fakeLTS, err)
+		t.Fatalf("%s should not exists, %v", fakeLTS, err)
 	}
 
 	if err = mgr.AddTLS(fakeLTS); err != nil {

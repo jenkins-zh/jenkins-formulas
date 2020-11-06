@@ -20,12 +20,12 @@ type BuildOptions struct {
 	Token    string
 
 	DockerUsername string
-	DockerToken string
+	DockerToken    string
 
-	CleanWAR bool
+	CleanWAR     bool
 	CleanTempDir bool
-	CleanImage bool
-	DryRun bool
+	CleanImage   bool
+	DryRun       bool
 
 	ConfigManager *common.CustomConfigManager
 }
@@ -33,13 +33,13 @@ type BuildOptions struct {
 // NewBuildCommand build the custom Jenkins
 func NewBuildCommand(commonOpts *common.Options) (cmd *cobra.Command) {
 	buildOptions := BuildOptions{
-		Options: commonOpts,
+		Options:       commonOpts,
 		ConfigManager: &common.CustomConfigManager{},
 	}
 	cmd = &cobra.Command{
 		Use:   "build",
 		Short: "build the custom Jenkins",
-		RunE: buildOptions.Run,
+		RunE:  buildOptions.Run,
 	}
 	cmd.Flags().StringVarP(&buildOptions.Username, "username", "u", "",
 		`The username of Bintray API`)
@@ -197,34 +197,34 @@ type VersionFormula struct {
 }
 
 type BintrayVersion struct {
-	Name string
-	Desc string
-	Package string
-	Repo string
-	Owner string
-	Labels []string
-	Published bool
+	Name           string
+	Desc           string
+	Package        string
+	Repo           string
+	Owner          string
+	Labels         []string
+	Published      bool
 	AttributeNames []string
-	Created string
-	Updated string
-	Released string
-	Message string
+	Created        string
+	Updated        string
+	Released       string
+	Message        string
 }
 
 type BintrayFile struct {
-	Name string
-	Path string
-	Repo string
+	Name    string
+	Path    string
+	Repo    string
 	Package string
 	Version string
-	Owner string
+	Owner   string
 	Created string
-	Size int64
-	Sha1 string
-	Sha256 string
+	Size    int64
+	Sha1    string
+	Sha256  string
 }
 
-func (o *BuildOptions) getVersionFiles(version string) (files []BintrayFile, err error){
+func (o *BuildOptions) getVersionFiles(version string) (files []BintrayFile, err error) {
 	client := &http.Client{}
 	api := fmt.Sprintf("https://api.bintray.com/packages/jenkins-zh/generic/jenkins/versions/%s/files", version)
 

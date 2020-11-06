@@ -16,13 +16,13 @@ type CheckOptions struct {
 // NewCheckCommand check the version command
 func NewCheckCommand(commonOpts *common.Options) (cmd *cobra.Command) {
 	checkOptions := CheckOptions{
-		Options: commonOpts,
+		Options:       commonOpts,
 		ConfigManager: &common.CustomConfigManager{},
 	}
 	cmd = &cobra.Command{
 		Use:   "check",
 		Short: "check update of the Jenkins version",
-		RunE: checkOptions.Run,
+		RunE:  checkOptions.Run,
 	}
 	return
 }
