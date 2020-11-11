@@ -22,9 +22,24 @@ type CustomWarPackage struct {
 	BuildSettings BuildSettings `yaml:"buildSettings"`
 	War           CustomWar     `yaml:"war"`
 	Plugins       []Plugin      `yaml:"plugins"`
+	CASC          []CASC        `yaml:"casc"`
+	GroovyHooks   []Hook        `yaml:"groovyHooks"`
 }
 
 type CASC struct {
+	ID     string    `yaml:"id"`
+	Type   string    `yaml:"type"`
+	Source DirSource `yaml:"source"`
+}
+
+type Hook struct {
+	ID     string    `yaml:"id"`
+	Type   string    `yaml:"type"`
+	Source DirSource `yaml:"source"`
+}
+
+type DirSource struct {
+	Dir string `yaml:"dir"`
 }
 
 type Plugin struct {
