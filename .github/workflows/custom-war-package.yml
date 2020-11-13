@@ -26,8 +26,7 @@ jobs:
         env:
           VERSION: 2.223
         run: |
-          wget https://dl.bintray.com/jenkins-zh/generic/jenkins-cli/dev/jcli-linux-amd64.tar.gz
-          tar xzvf jcli-linux-amd64.tar.gz
+          curl -L https://github.com/jenkins-zh/jenkins-cli/releases/latest/download/jcli-linux-amd64.tar.gz|tar xzv
           export PATH=.:$PATH
           make linux
           docker login --username ${{ secrets.DOCKER_HUB_USER }} --password ${{secrets.DOCKER_HUB_TOKEN}}
