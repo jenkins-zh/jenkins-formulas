@@ -22,6 +22,8 @@ type BuildOptions struct {
 	DockerUsername string
 	DockerToken    string
 
+	UploadToBintray bool
+
 	CleanWAR     bool
 	CleanTempDir bool
 	CleanImage   bool
@@ -41,21 +43,25 @@ func NewBuildCommand(commonOpts *common.Options) (cmd *cobra.Command) {
 		Short: "build the custom Jenkins",
 		RunE:  buildOptions.Run,
 	}
-	cmd.Flags().StringVarP(&buildOptions.Username, "username", "u", "",
+	flags := cmd.Flags()
+
+	flags.StringVarP(&buildOptions.Username, "username", "u", "",
 		`The username of Bintray API`)
-	cmd.Flags().StringVarP(&buildOptions.Token, "token", "t", "",
+	flags.StringVarP(&buildOptions.Token, "token", "t", "",
 		`The token of Bintray API`)
-	cmd.Flags().StringVarP(&buildOptions.DockerUsername, "docker-username", "", "",
+	flags.StringVarP(&buildOptions.DockerUsername, "docker-username", "", "",
 		`The username of docker hub`)
-	cmd.Flags().StringVarP(&buildOptions.DockerToken, "docker-token", "", "",
+	flags.StringVarP(&buildOptions.DockerToken, "docker-token", "", "",
 		`The token of docker hub`)
-	cmd.Flags().BoolVarP(&buildOptions.CleanWAR, "clean-war", "", true,
+	flags.BoolVarP(&buildOptions.CleanWAR, "clean-war", "", true,
 		`Clean jenkins.war after uploaded it`)
-	cmd.Flags().BoolVarP(&buildOptions.CleanTempDir, "clean-temp", "", true,
+	flags.BoolVarP(&buildOptions.CleanTempDir, "clean-temp", "", true,
 		`Clean the temp dir after uploaded it`)
-	cmd.Flags().BoolVarP(&buildOptions.CleanImage, "clean-image", "", true,
+	flags.BoolVarP(&buildOptions.CleanImage, "clean-image", "", true,
 		`Clean docker image after uploaded it`)
-	cmd.Flags().BoolVarP(&buildOptions.DryRun, "dry-run", "", false,
+	flags.BoolVarP(&buildOptions.UploadToBintray, "upload-to-bintray", "", true,
+		`If you want to upload files to bintray`)
+	flags.BoolVarP(&buildOptions.DryRun, "dry-run", "", false,
 		`Do not really do the build action`)
 	return
 }
@@ -304,6 +310,11 @@ func (o *BuildOptions) build(versionFormula VersionFormula, writer io.Writer) (p
 }
 
 func (o *BuildOptions) upload(filepath, version, formula string) (err error) {
+	if !o.UploadToBintray {
+		fmt.Println("Skip upload file to bintray")
+		return
+	}
+
 	client := &http.Client{}
 	api := fmt.Sprintf("https://api.bintray.com/content/jenkins-zh/generic/jenkins/%s/jenkins-%s.war", version, formula)
 

@@ -30,7 +30,6 @@ jobs:
           export PATH=.:$PATH
           make linux
           docker login --username ${{ secrets.DOCKER_HUB_USER }} --password ${{secrets.DOCKER_HUB_TOKEN}}
-          docker pull jenkinszh/jenkins-zh
-          docker push jenkinszh/jenkins-zh
           ./cj build --username ${{ secrets.BINTRAY_USER }} --token ${{ secrets.BINTRAY_TOKEN }} \
-            --docker-username ${{ secrets.DOCKER_HUB_USER }} --docker-token ${{secrets.DOCKER_HUB_TOKEN}}
+            --docker-username ${{ secrets.DOCKER_HUB_USER }} --docker-token ${{secrets.DOCKER_HUB_TOKEN}} \
+            --upload-to-bintray=false
