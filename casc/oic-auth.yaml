@@ -1,0 +1,26 @@
+jenkins:
+  updateCenter:
+    sites:
+    - id: "default"
+      url: "https://updates.jenkins-zh.cn/update-center.json"
+  securityRealm:
+    oic:
+      authorizationServerUrl: "http://192.168.31.140:5556/dex/auth"
+      clientId: "example-app"
+      clientSecret: "ZXhhbXBsZS1hcHAtc2VjcmV0"
+      disableSslVerification: true
+      emailFieldName: "email"
+      escapeHatchEnabled: true
+      escapeHatchGroup: "admin"
+      escapeHatchSecret: "admin"
+      escapeHatchUsername: "admin"
+      logoutFromOpenidProvider: true
+      scopes: "openid profile offline_access groups email"
+      tokenServerUrl: "http://192.168.31.140:5556/dex/token"
+      userInfoServerUrl: "http://192.168.31.140:5556/dex/userinfo"
+      userNameField: "name"
+      wellKnownOpenIDConfigurationUrl: "http://192.168.31.140:5556/dex/.well-known/openid-configuration"
+unclassified:
+  location:
+    url: "http://192.168.31.140:8080/"
+  
