@@ -6,7 +6,7 @@ bundle:
 buildSettings:
   docker:
     base: "jenkins/jenkins:{{.version}}"
-    tag: "jenkinszh/jenkins-zh:{{.version}}"
+    tag: "jenkinszh/jenkins-oic-auth:{{.version}}"
     build: true
 war:
   groupId: "org.jenkins-ci.main"
