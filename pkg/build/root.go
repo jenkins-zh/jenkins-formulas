@@ -75,8 +75,9 @@ func (o *BuildOptions) Run(cmd *cobra.Command, args []string) (err error) {
 	buildMap := make(map[string]VersionFormula, 0)
 
 	cmd.Println("check the new formulas here")
-	formulas := make([]common.CustomFormula, 0)
-	for _, formula := range o.ConfigManager.GetFormulas() {
+	formulas := make([]*common.CustomFormula, 0)
+	for i, _ := range o.ConfigManager.GetFormulas() {
+		formula := &o.ConfigManager.GetFormulas()[i]
 		formulaFile := fmt.Sprintf("formulas/%s.yaml", formula.Name)
 
 		var data []byte
@@ -88,12 +89,11 @@ func (o *BuildOptions) Run(cmd *cobra.Command, args []string) (err error) {
 		if formula.MD5 != latestMD5 {
 			for _, ver := range o.ConfigManager.GetAllVersions() {
 				buildMap[fmt.Sprintf("%s-%s", formula.Name, ver)] = VersionFormula{
-					Version: ver,
-					Formula: formula,
+					Version:   ver,
+					Formula:   formula,
+					LatestMD5: latestMD5,
 				}
 			}
-			// update the md5 of this formula, so we don't need package it again
-			formula.MD5 = latestMD5
 		}
 
 		formulas = append(formulas, formula)
@@ -104,6 +104,15 @@ func (o *BuildOptions) Run(cmd *cobra.Command, args []string) (err error) {
 	if err = o.dockerLogin(cmd.OutOrStdout()); err != nil {
 		return
 	}
+
+	defer func() {
+		// should save the config file for each formula
+		// just save it one time because it's easy to achieve
+		o.ConfigManager.SetFormulas(formulas)
+		if err = o.ConfigManager.Save(); err != nil {
+			cmd.PrintErrf("cannot save config file %#v\n", err)
+		}
+	}()
 
 	for _, versionFormula := range buildMap {
 		var path string
@@ -118,7 +127,8 @@ func (o *BuildOptions) Run(cmd *cobra.Command, args []string) (err error) {
 
 			if o.CleanWAR {
 				if cleanErr := os.RemoveAll(path); cleanErr != nil {
-					fmt.Println("clean war file error", err)
+					err = fmt.Errorf("clean war file error: %v", cleanErr)
+					return
 				}
 			}
 
@@ -126,30 +136,29 @@ func (o *BuildOptions) Run(cmd *cobra.Command, args []string) (err error) {
 				tempDir := fmt.Sprintf("tmp-%s-%s", versionFormula.Formula.Name, versionFormula.Version)
 
 				if cleanErr := os.RemoveAll(tempDir); cleanErr != nil {
-					fmt.Println("clean temp file error", err)
+					err = fmt.Errorf("clean temp file error: %v", cleanErr)
+					return
 				}
 			}
 
 			err = o.dockerPush(versionFormula.Version, versionFormula.Formula.Name, cmd.OutOrStdout())
 			if err != nil {
-				fmt.Println("docker push error", err)
+				err = fmt.Errorf("docker push error: %v", err)
+				return
 			}
 
 			if o.CleanImage {
 				// clean docker image in order not to take too much of storage
 				err = o.dockerRemoveImage(versionFormula.Version, versionFormula.Formula.Name, cmd.OutOrStdout())
 				if err != nil {
-					fmt.Println("docker remove image error", err)
+					err = fmt.Errorf("docker remove image error: %v", err)
+					return
 				}
 			}
-		}
-	}
 
-	// should save the config file for each formula
-	// just save it one time because it's easy to achieve
-	o.ConfigManager.SetFormulas(formulas)
-	if err = o.ConfigManager.Save(); err != nil {
-		cmd.PrintErrf("cannot save config file %#v\n", err)
+			// update the md5 of this formula, so we don't need package it again
+			versionFormula.Formula.MD5 = versionFormula.LatestMD5
+		}
 	}
 	return
 }
@@ -198,8 +207,9 @@ func (o *BuildOptions) dockerRemoveImage(version, formula string, writer io.Writ
 }
 
 type VersionFormula struct {
-	Version string
-	Formula common.CustomFormula
+	Version   string
+	Formula   *common.CustomFormula
+	LatestMD5 string
 }
 
 type BintrayVersion struct {
