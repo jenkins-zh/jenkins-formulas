@@ -145,7 +145,11 @@ plugins:
   - groupId: "io.jenkins.plugins"
     artifactId: "pipeline-restful-api"
     source:
-      version: 0.6
+      version: 0.11
+  - groupId: "org.jenkins-ci.plugins"
+    artifactId: "git"
+    source:
+      version: 4.2.2
 casc:
   - id: "jcasc"
     source:
