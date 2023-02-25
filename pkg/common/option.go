@@ -2,8 +2,9 @@ package common
 
 import (
 	"fmt"
-	"gopkg.in/yaml.v2"
 	"io/ioutil"
+
+	"gopkg.in/yaml.v2"
 )
 
 type Options struct {
@@ -59,8 +60,8 @@ func (c *CustomConfigManager) GetFormulas() []CustomFormula {
 
 func (c *CustomConfigManager) SetFormulas(formulas []*CustomFormula) {
 	newFormulas := make([]CustomFormula, len(formulas))
-	for i, _ := range formulas {
-		newFormulas[i]= *formulas[i]
+	for i := range formulas {
+		newFormulas[i] = *formulas[i]
 	}
 	c.CustomConfig.Formulas = newFormulas
 }
@@ -90,6 +91,10 @@ func (c *CustomConfigManager) HasTLS(lts string) (exists bool, err error) {
 
 func (c *CustomConfigManager) AddTLS(lts string) (err error) {
 	c.CustomConfig.LTS = append(c.CustomConfig.LTS, lts)
+
+	if cut := len(c.CustomConfig.LTS) - 10; cut > 0 {
+		c.CustomConfig.LTS = c.CustomConfig.LTS[cut:]
+	}
 	return
 }
 
@@ -105,5 +110,9 @@ func (c *CustomConfigManager) HasWeekly(weekly string) (exists bool, err error) 
 
 func (c *CustomConfigManager) AddWeekly(weekly string) (err error) {
 	c.CustomConfig.Weekly = append(c.CustomConfig.Weekly, weekly)
+
+	if cut := len(c.CustomConfig.Weekly) - 10; cut > 0 {
+		c.CustomConfig.Weekly = c.CustomConfig.Weekly[cut:]
+	}
 	return
 }

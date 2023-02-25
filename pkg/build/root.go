@@ -76,7 +76,7 @@ func (o *BuildOptions) Run(cmd *cobra.Command, args []string) (err error) {
 
 	cmd.Println("check the new formulas here")
 	formulas := make([]*common.CustomFormula, 0)
-	for i, _ := range o.ConfigManager.GetFormulas() {
+	for i := range o.ConfigManager.GetFormulas() {
 		formula := &o.ConfigManager.GetFormulas()[i]
 		formulaFile := fmt.Sprintf("formulas/%s.yaml", formula.Name)
 
