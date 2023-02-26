@@ -132,6 +132,10 @@ plugins:
     artifactId: "apache-httpcomponents-client-4-api"
     source:
       version: 4.5.10-2.0
+  - groupId: org.jenkins-ci.modules
+    artifactId: instance-identity
+    source:
+      version: 142.v04572ca_5b_265
 casc:
   - id: "jcasc"
     source:
