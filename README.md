@@ -27,13 +27,14 @@ Find all jenkins.war files by [click here](https://dl.bintray.com/jenkins-zh/gen
 ## Formula
 Below are some out-of-the-box solutions which I call them formulas
 
-| Formula | File Name | Image |
-|---|---|---|
-| Configuration as Code | `jenkins-zh.war` | `jenkinszh/jenkins-zh` [![Docker Pulls](https://img.shields.io/docker/pulls/jenkinszh/jenkins-zh.svg)](https://hub.docker.com/r/jenkinszh/jenkins-zh/tags) |
-| Configuration as Code + Pipeline| `jenkins-pipeline.war` | `jenkinszh/jenkins-pipeline` [![Docker Pulls](https://img.shields.io/docker/pulls/jenkinszh/jenkins-pipeline.svg)](https://hub.docker.com/r/jenkinszh/jenkins-pipeline/tags) |
-| CASC + Pipeline + K8s | `jenkins-k8s.war` | `jenkinszh/jenkins-k8s:2.204.5` [![Docker Pulls](https://img.shields.io/docker/pulls/jenkinszh/jenkins-k8s.svg)](https://hub.docker.com/r/jenkinszh/jenkins-k8s/tags) |
-| BlueOcean + Multi-branch Pipeline | `blueocean-zh.war` | `jenkinszh/blueocean-zh:2.204.5` [![Docker Pulls](https://img.shields.io/docker/pulls/jenkinszh/blueocean-zh.svg)](https://hub.docker.com/r/jenkinszh/blueocean-zh/tags) |
-| Multi-branch Pipeline（GitHub、GitLab、Bitbucket）| `jenkins-multi-pipeline-zh.war` | `jenkinszh/jenkins-multi-pipeline-zh:2.204.5` [![Docker Pulls](https://img.shields.io/docker/pulls/jenkinszh/jenkins-multi-pipeline-zh.svg)](https://hub.docker.com/r/jenkinszh/jenkins-multi-pipeline-zh/tags) |
+| Formula | Image |
+|---|---|
+| Configuration as Code | `jenkinszh/jenkins-zh` [![Docker Pulls](https://img.shields.io/docker/pulls/jenkinszh/jenkins-zh.svg)](https://hub.docker.com/r/jenkinszh/jenkins-zh/tags) |
+| Configuration as Code + Pipeline | `jenkinszh/jenkins-pipeline` [![Docker Pulls](https://img.shields.io/docker/pulls/jenkinszh/jenkins-pipeline.svg)](https://hub.docker.com/r/jenkinszh/jenkins-pipeline/tags) |
+| CASC + Pipeline + K8s | `jenkinszh/jenkins-k8s:2.375.3` [![Docker Pulls](https://img.shields.io/docker/pulls/jenkinszh/jenkins-k8s.svg)](https://hub.docker.com/r/jenkinszh/jenkins-k8s/tags) |
+| BlueOcean + Multi-branch Pipeline | `jenkinszh/blueocean-zh:2.375.3` [![Docker Pulls](https://img.shields.io/docker/pulls/jenkinszh/blueocean-zh.svg)](https://hub.docker.com/r/jenkinszh/blueocean-zh/tags) |
+| Multi-branch Pipeline（GitHub、GitLab、Bitbucket）| `jenkinszh/jenkins-multi-pipeline-zh:2.375.3` [![Docker Pulls](https://img.shields.io/docker/pulls/jenkinszh/jenkins-multi-pipeline-zh.svg)](https://hub.docker.com/r/jenkinszh/jenkins-multi-pipeline-zh/tags) |
+| Role-based Authorization Strategy | `jenkinszh/jenkins-zh-role:2.375.3` [![Docker Pulls](https://img.shields.io/docker/pulls/jenkinszh/jenkins-zh-role.svg)](https://hub.docker.com/r/jenkinszh/jenkins-zh-role/tags) |
 
 Want to contribute a formula? Please learn how to create it from [here](formulas/README.md).
 
@@ -44,7 +45,7 @@ We suggest to use Helm Charts in Kubernetes, below are the example command of in
 helm repo add stable https://kubernetes-charts.storage.googleapis.com
 helm install jenkins stable/jenkins \
     --set master.image=jenkinszh/jenkins-k8s \
-    --set master.tag=2.204.5 \
+    --set master.tag=2.375.3 \
     --set master.imagePullPolicy=IfNotPresent \
     --set persistence.enabled=false \
     --set master.serviceType=NodePort
