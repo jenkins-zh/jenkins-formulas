@@ -58,4 +58,4 @@ You can get more details about [how to configure Jenkins chart](https://github.c
 [Jenkins Official Docker Hub](https://hub.docker.com/r/jenkins/jenkins/tags)
 
 ## Feedback
-Any kind of contributions are very appreciate.
+We greatly appreciate any and all contributions.
